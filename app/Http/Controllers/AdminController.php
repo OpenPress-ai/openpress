@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ImportService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -28,15 +30,26 @@ class AdminController extends Controller
         $file = $request->file('json_file');
         $path = $file->store('temp');
 
+        Log::info('File stored at: ' . $path);
+        Log::info('Full storage path: ' . storage_path('app/' . $path));
+        Log::info('File exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
+
         try {
-            $this->importService->importJson(storage_path('app/' . $path));
+            $fullPath = storage_path('app/' . $path);
+            Log::info('Attempting to read file: ' . $fullPath);
+            $contents = file_get_contents($fullPath);
+            Log::info('File contents length: ' . strlen($contents));
+
+            $this->importService->importJson($fullPath);
             $message = 'Import completed successfully.';
         } catch (\Exception $e) {
+            Log::error('Import failed: ' . $e->getMessage());
+            Log::error('Exception trace: ' . $e->getTraceAsString());
             $message = 'Import failed: ' . $e->getMessage();
         }
 
         // Delete the temporary file
-        \Storage::delete($path);
+        Storage::delete($path);
 
         $stats = [
             'users' => \App\Models\User::count(),
