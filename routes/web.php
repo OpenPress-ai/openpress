@@ -21,6 +21,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [PageBuilderController::class, 'index'])->name('page-builder.index');
         Route::get('/create', [PageBuilderController::class, 'create'])->name('page-builder.create');
         Route::get('/{id}/edit', [PageBuilderController::class, 'edit'])->name('page-builder.edit');
+        // Add the following new routes
+        Route::get('/pages', [PageBuilderController::class, 'index'])->name('page-builder.pages');
+        Route::get('/pages/create', [PageBuilderController::class, 'create'])->name('page-builder.pages.create');
+        Route::get('/pages/{id}/edit', [PageBuilderController::class, 'edit'])->name('page-builder.pages.edit');
     });
 });
 
