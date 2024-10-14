@@ -9,7 +9,8 @@ class PageBuilderController extends Controller
 {
     public function index()
     {
-        return view('page-builder.index');
+        $pages = Page::all();
+        return view('page-builder.index', compact('pages'));
     }
 
     public function create()
@@ -38,7 +39,6 @@ class PageBuilderController extends Controller
 
     public function getElements()
     {
-        // This would typically come from a database or configuration file
         $elements = [
             ['type' => 'text', 'name' => 'Text Block'],
             ['type' => 'image', 'name' => 'Image'],
