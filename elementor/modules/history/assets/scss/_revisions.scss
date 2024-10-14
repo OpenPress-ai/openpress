@@ -1,0 +1,74 @@
+.elementor-revision- {
+
+	&item {
+		&__wrapper {
+			display: flex;
+			align-items: center;
+			text-align: start;
+			width: 100%;
+			border: var(--e-a-border);
+			border-radius: var(--e-a-border-radius);
+			padding: 10px 15px;
+			margin-block-end: 10px;
+			font-size: 11px;
+			transition: var(--e-a-transition-hover);
+			background-color: transparent;
+	
+			&:hover,
+			&:focus {
+				background-color: var(--e-a-bg-hover);
+			}
+		}
+
+		&-loading {
+
+			.elementor-revision-item__tools-current {
+				display: none;
+			}
+		}
+
+		&:not(.elementor-revision-item-loading) {
+
+			.elementor-revision-item__tools-spinner {
+				display: none;
+			}
+		}
+
+		&__gravatar {
+			border-radius: 50%;
+			overflow: hidden;
+
+			img {
+				display: block;
+			}
+		}
+
+		&__details {
+			padding-inline-start: 15px;
+			flex-grow: 1;
+			cursor: pointer;
+		}
+	}
+
+	&meta {
+		padding-block-start: 5px;
+		font-size: 10px;
+		font-weight: bold;
+	}
+
+	&current-preview {
+
+		.elementor-revision-item__wrapper {
+			border-color: var(--e-a-border-color-accent);
+			background-color: var(--e-a-bg-active);
+		}
+	}
+}
+
+#elementor-panel-revisions-loading {
+	@include absolute-center;
+
+	.eicon-loading {
+		font-size: 50px;
+	}
+}

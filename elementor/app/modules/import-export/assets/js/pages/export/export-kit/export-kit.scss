@@ -1,0 +1,36 @@
+$root: e-app-export-kit;
+
+.#{$root} {
+	padding-block-end: spacing(20);
+
+	&-information {
+		margin-block-start: spacing(20);
+
+		&__field-header {
+			margin-block-end: spacing(10);
+		}
+
+		&__label {
+			margin: 0;
+		}
+
+		&__info-icon {
+			margin-inline-start: spacing(10);
+		}
+	}
+
+	&-info-modal {
+		&__icon {
+			padding-inline-start: spacing(10);
+		}
+
+		&__heading {
+			margin-block-end: spacing(20);
+		}
+	}
+}
+
+.eps-theme-dark {
+	.#{$root} {
+	}
+}
