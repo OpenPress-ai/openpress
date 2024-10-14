@@ -2,13 +2,22 @@
 
 namespace Database\Factories;
 
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Page>
  */
-class PostFactory extends Factory
+class PageFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Page::class;
+
     /**
      * Define the model's default state.
      *
@@ -16,10 +25,11 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->sentence(4);
         return [
-            'title' => $this->faker->sentence(6),
-            'slug' => $this->faker->slug(),
-            'mobiledoc' => json_encode([
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'content' => json_encode([
                 [
                     'type' => 'text',
                     'content' => $this->faker->paragraphs(3, true)
@@ -29,8 +39,6 @@ class PostFactory extends Factory
                     'content' => $this->faker->imageUrl()
                 ]
             ]),
-            'type' => 'post',
-            'status' => 'published',
         ];
     }
 }

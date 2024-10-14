@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('wordpress_id')->unique();
+            $table->unsignedBigInteger('wordpress_id')->unique()->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('mobiledoc');

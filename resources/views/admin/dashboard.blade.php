@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Admin Panel') }}
+            {{ __('Admin Dashboard') }}
         </h2>
     </x-slot>
 
@@ -12,7 +12,6 @@
                     <h3 class="text-lg font-semibold mb-4">Admin Tools</h3>
                     <ul>
                         <li><a href="{{ route('page-builder.index') }}" class="text-blue-600 hover:underline">Page Builder</a></li>
-                        <!-- Add other admin tools here -->
                     </ul>
                 </div>
             </div>
