@@ -13,6 +13,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
+        'wordpress_id',
         'title',
         'slug',
         'mobiledoc',
