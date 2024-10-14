@@ -38,7 +38,8 @@ export default defineConfig({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
-            '_': 'underscore'
+            '_': 'underscore',
+            'Backbone': 'backbone',
         }),
         commonjs({
             include: [
