@@ -14,7 +14,7 @@ export default defineConfig({
                 'resources/css/page-builder.css',
                 'page-builder.js',
                 'src/jquery-global.js',
-                'src/marionette-global.js',  // Add this line
+                'src/marionette-global.js',
             ],
             refresh: true,
         }),
@@ -32,6 +32,17 @@ export default defineConfig({
             transform(code, id) {
                 if (id.includes('elementor') && code.includes('import $ from \'jquery\'')) {
                     return code.replace('import $ from \'jquery\'', 'const $ = window.jQuery');
+                }
+            },
+        },
+        {
+            name: 'handle-marionette-exports',
+            transform(code, id) {
+                if (code.includes('module.exports = Marionette.ItemView.extend(')) {
+                    return code.replace(
+                        'module.exports = Marionette.ItemView.extend(',
+                        'module.exports = window.Marionette.ItemView.extend('
+                    );
                 }
             },
         },
