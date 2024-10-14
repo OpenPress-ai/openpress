@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Page;
 use Spatie\Permission\Models\Role;
 
 beforeEach(function () {
@@ -51,11 +52,18 @@ test('admin can edit existing page with page builder', function () {
     $user = User::factory()->create();
     $user->assignRole('admin');
 
-    // Assume we have a page with ID 1
-    $response = $this->actingAs($user)->get('/admin/page-builder/pages/1/edit');
+    // Create a page
+    $page = Page::create([
+        'title' => 'Test Page',
+        'slug' => 'test-page',
+        'content' => json_encode(['type' => 'section', 'content' => 'Test content']),
+    ]);
+
+    $response = $this->actingAs($user)->get("/admin/page-builder/pages/{$page->id}/edit");
 
     $response->assertStatus(200);
     $response->assertSee('Edit Page');
+    $response->assertSee('Test Page');
 });
 
 test('non admin cannot access page builder section', function () {
