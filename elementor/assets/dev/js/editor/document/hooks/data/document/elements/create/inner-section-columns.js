@@ -1,6 +1,6 @@
 import After from 'elementor-api/modules/hooks/data/after';
 import Helper from '../helper';
-import SectionView from 'elementor-elements/views/section';
+import * as SectionView from 'elementor-elements/views/section';
 
 /**
  * @typedef {import('../../../../../../container/container')} Container
