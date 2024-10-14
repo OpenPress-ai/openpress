@@ -37,7 +37,7 @@ test('admin can create new page with page builder', function () {
         ])
     ];
 
-    $response = $this->actingAs($user)->post(route('pages.store'), $pageData);
+    $response = $this->actingAs($user)->post(route('page-builder.store'), $pageData);
 
     $response->assertStatus(302);
     $this->assertDatabaseHas('pages', ['slug' => 'new-test-page']);
@@ -49,7 +49,7 @@ test('admin can edit existing page with page builder', function () {
 
     $page = Page::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('pages.edit', $page));
+    $response = $this->actingAs($user)->get(route('page-builder.edit', $page));
 
     $response->assertStatus(200);
     $response->assertSee($page->title);
@@ -60,7 +60,7 @@ test('admin can delete page', function () {
     $user->assignRole('admin');
     $page = Page::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('pages.destroy', $page));
+    $response = $this->actingAs($user)->delete(route('page-builder.destroy', $page));
 
     $response->assertStatus(302);
     $this->assertDatabaseMissing('pages', ['id' => $page->id]);
