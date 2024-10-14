@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/css/page-builder.css',
                 'page-builder.js',
                 'src/jquery-global.js',
+                'src/marionette-global.js',  // Add this line
             ],
             refresh: true,
         }),
@@ -40,7 +41,6 @@ export default defineConfig({
             'window.jQuery': 'jquery',
             '_': 'underscore',
             'Backbone': 'backbone',
-            'window.Marionette': 'elementor/assets/lib/backbone/backbone.marionette',
         }),
         commonjs({
             include: [
@@ -55,7 +55,7 @@ export default defineConfig({
         exclude: [],
     },
     optimizeDeps: {
-        include: ['jquery'],
+        include: ['jquery', 'backbone', 'underscore'],
         esbuildOptions: {
             plugins: [
                 {
