@@ -65,7 +65,7 @@ class ImportService
             }
 
             $post = Post::updateOrCreate(
-                ['id' => $postData['id']],
+                ['wordpress_id' => $postData['id']],
                 [
                     'title' => $postData['title'],
                     'slug' => $postData['slug'],
@@ -87,6 +87,7 @@ class ImportService
 
             Log::info("Post created/updated", [
                 'id' => $post->id,
+                'wordpress_id' => $post->wordpress_id,
                 'title' => $post->title,
                 'slug' => $post->slug,
                 'author_id' => $post->author_id
@@ -104,14 +105,19 @@ class ImportService
             })->filter()->toArray();
         })->toArray();
 
-        foreach ($tagMap as $postId => $tagSlugs) {
-            $post = Post::find($postId);
+        foreach ($tagMap as $wordpressPostId => $tagSlugs) {
+            $post = Post::where('wordpress_id', $wordpressPostId)->first();
             if ($post) {
                 $tagIds = Tag::whereIn('slug', $tagSlugs)->pluck('id');
                 $post->tags()->sync($tagIds);
-                Log::info("Attached tags to post ID: {$postId}", ['tag_slugs' => $tagSlugs, 'tag_ids' => $tagIds]);
+                Log::info("Attached tags to post", [
+                    'id' => $post->id,
+                    'wordpress_id' => $post->wordpress_id,
+                    'tag_slugs' => $tagSlugs,
+                    'tag_ids' => $tagIds
+                ]);
             } else {
-                Log::warning("Post not found for ID: {$postId} when attaching tags");
+                Log::warning("Post not found for WordPress ID: {$wordpressPostId} when attaching tags");
             }
         }
     }
