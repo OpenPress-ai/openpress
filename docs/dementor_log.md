@@ -1,19 +1,19 @@
 # Dementor Development Log
 
-## 2023-05-10: Initial Planning and Test Creation
+## 2024-10-14: Initial Planning and Test Creation
 
 1. Created `docs/dementor.md` with a comprehensive implementation plan for the Dementor page builder functionality.
 
 2. Created `docs/dementor_tests.md` with a list of feature tests covering various aspects of the page builder.
 
-3. Created `tests/Feature/PageBuilder/AdminPanelTest.php` with the following tests for the page builder integration in the admin panel:
+3. Created `tests/Feature/PageBuilder/AdminPanelTest.php` with the following tests for the page builder integration in the admin panel using Pest syntax:
 
-   - test_admin_can_see_page_builder_in_admin_panel
-   - test_admin_can_access_page_builder_section
-   - test_admin_can_see_list_of_pages_in_page_builder
-   - test_admin_can_create_new_page_with_page_builder
-   - test_admin_can_edit_existing_page_with_page_builder
-   - test_non_admin_cannot_access_page_builder_section
+   - admin can see page builder in admin panel
+   - admin can access page builder section
+   - admin can see list of pages in page builder
+   - admin can create new page with page builder
+   - admin can edit existing page with page builder
+   - non admin cannot access page builder section
 
 These tests ensure that:
 - The Page Builder option is visible in the main admin panel for admin users.
