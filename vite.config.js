@@ -35,7 +35,6 @@ export default defineConfig({
             ],
         },
     },
-});
     resolve: {
         alias: {
             'elementor': path.resolve(__dirname, 'elementor'),
