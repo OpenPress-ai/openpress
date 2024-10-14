@@ -18,7 +18,7 @@ class ImportService
             $this->importUsers($json['data']['users']);
             $this->importTags($json['data']['tags']);
             $this->importPosts($json['data']['posts'], $json['data']['posts_authors']);
-            $this->attachTagsToPosts($json['data']['posts_tags']);
+            $this->attachTagsToPosts($json['data']['posts_tags'], $json['data']['tags']);
         });
     }
 
@@ -44,10 +44,9 @@ class ImportService
     {
         foreach ($tags as $tagData) {
             Tag::updateOrCreate(
-                ['id' => $tagData['id']],
+                ['slug' => $tagData['slug']],
                 [
                     'name' => $tagData['name'],
-                    'slug' => $tagData['slug'],
                 ]
             );
         }
@@ -88,15 +87,20 @@ class ImportService
         }
     }
 
-    private function attachTagsToPosts(array $postsTags): void
+    private function attachTagsToPosts(array $postsTags, array $tags): void
     {
-        $tagMap = collect($postsTags)->groupBy('post_id')->map(function ($tags) {
-            return $tags->pluck('tag_id')->toArray();
+        $tagSlugMap = collect($tags)->pluck('slug', 'id')->toArray();
+
+        $tagMap = collect($postsTags)->groupBy('post_id')->map(function ($tags) use ($tagSlugMap) {
+            return collect($tags)->map(function ($tag) use ($tagSlugMap) {
+                return $tagSlugMap[$tag['tag_id']] ?? null;
+            })->filter()->toArray();
         })->toArray();
 
-        foreach ($tagMap as $postId => $tagIds) {
+        foreach ($tagMap as $postId => $tagSlugs) {
             $post = Post::find($postId);
             if ($post) {
+                $tagIds = Tag::whereIn('slug', $tagSlugs)->pluck('id');
                 $post->tags()->sync($tagIds);
             } else {
                 Log::warning("Post not found for ID: {$postId} when attaching tags");
