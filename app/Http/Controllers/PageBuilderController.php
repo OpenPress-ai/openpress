@@ -18,12 +18,6 @@ class PageBuilderController extends Controller
         return view('page-builder.create');
     }
 
-    public function edit($id)
-    {
-        $page = Page::findOrFail($id);
-        return view('page-builder.edit', compact('page'));
-    }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -34,7 +28,32 @@ class PageBuilderController extends Controller
 
         $page = Page::create($validatedData);
 
-        return response()->json($page, 201);
+        return redirect()->route('pages.edit', $page)->with('success', 'Page created successfully');
+    }
+
+    public function edit(Page $page)
+    {
+        return view('page-builder.edit', compact('page'));
+    }
+
+    public function update(Request $request, Page $page)
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:pages,slug,' . $page->id,
+            'content' => 'required|json',
+        ]);
+
+        $page->update($validatedData);
+
+        return redirect()->route('pages.edit', $page)->with('success', 'Page updated successfully');
+    }
+
+    public function destroy(Page $page)
+    {
+        $page->delete();
+
+        return redirect()->route('page-builder.index')->with('success', 'Page deleted successfully');
     }
 
     public function getElements()
