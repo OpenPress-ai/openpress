@@ -16,7 +16,7 @@ export default defineConfig({
     ],
     esbuild: {
         loader: 'jsx',
-        include: /resources\/.*\.js$/,
+        include: /.*\.js$/,
         exclude: [],
     },
     optimizeDeps: {
@@ -25,11 +25,7 @@ export default defineConfig({
                 {
                     name: 'load-js-files-as-jsx',
                     setup(build) {
-                        build.onLoad({ filter: /resources\/.*\.js$/ }, async (args) => ({
-                            loader: 'jsx',
-                            contents: await fs.promises.readFile(args.path, 'utf8'),
-                        }));
-                        build.onLoad({ filter: /dementor\/.*\.js$/ }, async (args) => ({
+                        build.onLoad({ filter: /.*\.js$/ }, async (args) => ({
                             loader: 'jsx',
                             contents: await fs.promises.readFile(args.path, 'utf8'),
                         }));
