@@ -1,0 +1,136 @@
+@import "../global/dialog-confirm";
+//Elementor Feedback
+
+@keyframes elementor-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
+}
+
+#elementor-deactivate-feedback-dialog-wrapper {
+	display: none;
+}
+
+#elementor-deactivate-feedback-modal {
+	color: var(--e-a-color-txt);
+
+	.dialog-widget-content {
+		width: 550px;
+	}
+
+	.dialog-header {
+		padding: 18px 15px;
+		box-shadow: $panel-bottom-shadow;
+		text-align: start;
+	}
+
+	.dialog-message {
+		padding: 30px;
+		padding-block-end: 0;
+		text-align: start;
+	}
+
+	.elementor-deactivate-feedback-dialog-input {
+		margin-block: 0;
+		margin-inline: 0 15px;
+		box-shadow: none;
+
+		&:not(:checked) {
+
+			~ .elementor-feedback-text {
+				display: none;
+			}
+		}
+	}
+
+	.elementor-deactivate-feedback-dialog-label {
+		display: block;
+		font-size: 13px;
+	}
+
+	.elementor-feedback-text {
+		background-color: transparent;
+		color: var(--e-a-color-txt);
+		margin-block: 10px 0;
+		margin-inline: 30px 0;	
+		padding: 5px;
+		box-shadow: none;
+		width: 92%;
+	}
+
+	.dialog-buttons-wrapper {
+		display: flex;
+		justify-content: space-between;
+		padding: 20px 30px 30px;
+	}
+
+	.dialog-submit {
+		@extend .e-btn;
+		@extend .e-primary;
+
+		&.elementor-loading {
+
+			&:before {
+				display: inline-block;
+				content: '\f463';
+				font: 18px dashicons;
+				animation: elementor-rotation 2s infinite linear;
+			}
+		}
+	}
+
+	.dialog-skip {
+		@extend .e-btn;
+		@extend .e-btn-txt;
+	}
+
+	&[data-feedback-selected="elementor_pro"] {
+
+		.elementor-feedback-text {
+			color: $editor-warning;
+			padding: 0;
+		}
+
+		.dialog-submit {
+			display: none;
+		}
+	}
+}
+
+#elementor-deactivate-feedback-dialog {
+
+	&-header {
+
+		i {
+			font-size: 19px;
+		}
+	}
+
+	&-header-title {
+		font-size: 15px;
+		text-transform: uppercase;
+		font-weight: bold;
+		padding-inline-start: 5px;
+	}
+
+	&-form-caption {
+		font-weight: bold;
+		font-size: 15px;
+		line-height: 1.4;
+	}
+
+	&-form-body {
+		padding-block-start: 30px;
+		padding-block-end: 15px;
+	}
+}
+
+.elementor-deactivate-feedback-dialog-input-wrapper {
+	display: flex;
+	align-items: center;
+	line-height: 2;
+	overflow: hidden;
+}

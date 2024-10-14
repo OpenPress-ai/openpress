@@ -1,0 +1,142 @@
+//
+// Element Edit
+//
+
+.elementor-panel-navigation {
+	display: flex;
+	width: 100%;
+	border-block-end: var(--e-a-border);
+
+	.elementor-panel-navigation-tab {
+		all: unset;
+		flex: auto;
+		transition: var(--e-a-transition-hover);
+		border-block-end: 3px solid transparent;
+		cursor: pointer;
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-bg-hover);
+		}
+
+		&:focus {
+			outline: 0;
+		}
+
+		&.elementor-active {
+			border-color: var(--e-a-border-color-accent);
+			color: var(--e-a-color-txt-accent);
+
+			span {
+				color: var(--e-a-color-txt-accent);
+			}
+		}
+
+		span {
+			color: inherit;
+			display: block;
+			text-align: center;
+			padding: 12px 0 8px;
+			font-size: $font-size-xs;
+
+			&:before {
+				font-family: eicons;
+				font-size: $font-size-lg;
+				display: block;
+				margin-block-end: 8px;
+			}
+		}
+	}
+}
+
+.elementor-tab-control-content {
+	span:before {
+		content: '\e92c';
+	}
+}
+
+.elementor-tab-control-style {
+	span:before {
+		content: '\e921';
+	}
+}
+
+.elementor-tab-control-settings {
+	span:before {
+		content: '\e940';
+	}
+}
+
+.elementor-tab-control-advanced-tab-floating-buttons,
+.elementor-tab-control-advanced-tab-links-in-bio,
+.elementor-tab-control-advanced-tab-floating-bars,
+.elementor-tab-control-advanced,
+.elementor-tab-control-general_style {
+	span:before {
+		content: '\e916';
+	}
+}
+
+//TODO: Remove
+.elementor-tab-control-responsive {
+	span:before {
+		content: '\e885';
+	}
+}
+
+.elementor-tab-control-lightbox {
+	span:before {
+		content: '\e922';
+	}
+}
+//END
+
+.elementor-tab-control-layout,
+.elementor-tab-control-column {
+	span:before {
+		content: '\e899';
+	}
+}
+
+#elementor-panel__editor__help {
+	padding: 50px 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&__link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 85%;
+		line-height: 2;
+		padding-inline-start: 5px;
+		color: inherit;
+		font-weight: 500;
+		transition: var(--e-a-transition-hover);
+
+		&:hover,
+		&:focus {
+			color: var(--e-a-color-info);
+		}
+
+		i {
+			padding: 0 5px;
+			font-size: 125%;
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				height: 13px;
+				width: 13px;
+				top: 3px;
+				bottom: 0;
+				@include start(8px);
+				@include end(0);
+				border-radius: 50%;
+				z-index: -1;
+			}
+		}
+	}
+}

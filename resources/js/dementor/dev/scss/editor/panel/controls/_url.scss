@@ -1,0 +1,159 @@
+.elementor-control-type-url {
+
+	.elementor-control-field {
+		position: relative;
+	}
+
+	.elementor-control-input-wrapper {
+		display: flex;
+	}
+
+	&.elementor-control-dynamic {
+
+		.elementor-control-url-more-options {
+
+			input {
+				border-radius: var(--e-a-border-radius);
+			}
+		}
+	}
+
+	&.elementor-control-dynamic-value {
+
+		.e-input-style {
+			border-start-end-radius: 0;
+			border-end-end-radius: 0;
+		}
+
+		.elementor-control-url-more {
+			border-start-end-radius: var(--e-a-border-radius);
+			border-end-end-radius: var(--e-a-border-radius);
+		}
+	}
+
+	.elementor-control-url {
+
+		&-more {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			border: var(--e-a-border-bold);
+			color: currentColor;
+			background-color: transparent;
+			border-inline-start-width: 0;
+			cursor: pointer;
+
+			i {
+				font-size: 12px;
+			}
+
+			&-options {
+				display: none;
+				padding-block-start: 10px;
+
+				.elementor-control-field-description {
+					margin-block-start: 10px;
+				}
+			}
+
+			&:hover {
+				color: var(--e-a-color-txt-hover);
+			}
+
+			&:focus {
+				color: var(--e-a-color-txt-active);
+				border-color: var(--e-a-border-color-focus);
+			}
+		}
+
+		&-option {
+			display: flex;
+			align-items: center;
+
+			&:not(:last-child) {
+				padding-block-end: 10px;
+			}
+
+			input,
+			label {
+				cursor: pointer;
+			}
+		}
+
+		&-autocomplete-spinner {
+			display: none;
+			position: absolute;
+			top: 5px;
+			right: 0;
+			width: 10px;
+			height: 10px;
+			font-size: 10px;
+			color: var(--e-a-color-txt-disabled);
+		}
+
+		&__custom-attributes {
+
+			label {
+				font-size: var(--control-title-size);
+			}
+
+			input {
+				width: 100%;
+				margin-block-start: 10px;
+			}
+		}
+	}
+
+	.elementor-input {
+
+		&:focus {
+
+			~ div {
+				border-color: var(--e-a-border-color-focus);
+			}
+		}
+	}
+}
+
+//Autocomplete URL
+.elementor-autocomplete-menu {
+	position: absolute;
+	background: var(--e-a-bg-default);
+	border: var(--e-a-border);
+	margin: 0;
+	list-style: none;
+	padding: 4px 0;
+	height: auto;
+	width: 100%;
+	min-width: 260px;
+	max-width: 300px;
+	max-height: 200px;
+	overflow-y: auto;
+	border-radius: 3px;
+	transition: var(--e-a-transition-hover);
+	cursor: default;
+	z-index: 1;
+
+	.ui-menu-item {
+		display: flex;
+		justify-content: space-between;
+		align-self: baseline;
+		padding: 5px 8px;
+		font-size: 12px;
+		width: 100%;
+		line-height: 1.2;
+		cursor: pointer;
+
+		&.ui-state-hover,
+		&.ui-state-active,
+		&.ui-state-focus {
+			background: var(--e-a-bg-hover);
+		}
+	}
+
+	.elementor-autocomplete-item-info {
+		font-size: 10px;
+		padding-block-start: 2px;
+	}
+}

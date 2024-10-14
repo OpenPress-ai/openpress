@@ -1,0 +1,28 @@
+.elementor-widget-heading .elementor-heading-title {
+	&[class*="elementor-size-"] {
+
+		> a {
+			color: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+	}
+
+	&.elementor-size- {
+		&small {
+			font-size: 15px;
+		}
+		&medium {
+			font-size: 19px;
+		}
+		&large {
+			font-size: 29px;
+		}
+		&xl {
+			font-size: 39px;
+		}
+		&xxl {
+			font-size: 59px;
+		}
+	}
+}

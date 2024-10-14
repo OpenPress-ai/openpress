@@ -1,0 +1,43 @@
+
+/*= Elementor Admin Alert
+---------------------------------------*/
+
+.elementor-admin-alert {
+	padding: 15px;
+	border-inline-start: 3px solid transparent;
+	position: relative;
+	font-size: 12px;
+	line-height: 1.5;
+	text-align: start;
+
+	a {
+		color: inherit;
+	}
+
+	&.elementor-alert- {
+
+		&info {
+			color: var(--e-a-color-info);
+			background-color: var(--e-a-bg-info);
+			border-color: var(--e-a-color-info);
+		}
+
+		&success {
+			color: var(--e-a-color-success);
+			background-color: var(--e-a-bg-success);
+			border-color: var(--e-a-color-success);
+		}
+
+		&warning {
+			color: var(--e-admin-color-warning);
+			background-color: var(--e-a-bg-warning);
+			border-color: var(--e-a-color-warning);
+		}
+
+		&danger {
+			color: var(--e-a-color-danger);
+			background-color: var(--e-a-bg-danger);
+			border-color: var(--e-a-color-danger);
+		}
+	}
+}

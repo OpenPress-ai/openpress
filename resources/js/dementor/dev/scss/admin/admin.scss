@@ -1,0 +1,35 @@
+//
+// Admin CSS for Elementor
+//
+
+// Core variables and mixins
+@import "../helpers/variables";
+@import "../editor/breakpoints";
+@import "../helpers/mixins";
+@import "../editor/buttons";
+
+// Admin Global
+@import "global";
+@import "../global/dialog-base";
+@import "../global/dialog-lightbox";
+@import "../global/dialog-confirm";
+
+@import "css-variables";
+@import "getting-started";
+@import "button";
+@import "notice";
+@import "alert";
+@import "system_info";
+@import "feedback";
+@import "import-template";
+@import "maintenance-mode";
+@import "tools";
+@import "dashboard-widget";
+@import "template-library";
+@import "new-template-dialog";
+@import "role-manager";
+@import "beta-tester";
+@import "experiments";
+@import "landing-pages";
+@import "promotion";
+@import "../editor/panel/controls/_notice";

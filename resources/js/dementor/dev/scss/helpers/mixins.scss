@@ -1,0 +1,254 @@
+@use "sass:math";
+
+//
+// Mixins
+//
+
+// Simple PX to REM units converter
+@function pxToRem($size) {
+	@return math.div( $size, 16px ) * 1rem;
+}
+
+// Forms > Input Style
+@mixin input-style() {
+	border: 1px solid $gray;
+	background-color: transparent;
+	color: $gray-darker;
+	font-size: 1em;
+	line-height: 1.4;
+	height: auto;
+	width: auto;
+	vertical-align: middle;
+	padding: 9px 16px;
+	border-radius: 3px;
+	flex-grow: 1;
+}
+
+// Forms > Input Focus
+@mixin input-focus() {
+
+	&:focus {
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+		outline-width: 0;
+		outline-style: hidden;
+	}
+}
+
+// Forms > Input Placeholder
+@mixin placeholder-style() {
+	color: inherit;
+	font-family: inherit;
+	opacity: 0.6;
+}
+
+@mixin input-placeholder() {
+
+	// Keep the following rules each alone (Auto Prefix Bug)!
+	&::-webkit-input-placeholder {
+		@include placeholder-style();
+	}
+
+	&:-ms-input-placeholder {
+		@include placeholder-style();
+	}
+
+	&::-moz-placeholder {
+		@include placeholder-style();
+	}
+
+	&:-moz-placeholder {
+		@include placeholder-style();
+	}
+
+	&::placeholder {
+		@include placeholder-style();
+	}
+}
+
+@mixin button-types( $selector ) {
+
+	@each $type, $color in (
+		info: $info,
+		success: $success,
+		warning: $warning,
+		danger: $danger
+	) {
+		&#{$type} #{$selector} {
+			background-color: $color;
+		}
+	}
+}
+
+@mixin e-button {
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.2;
+	padding: 8px 16px;
+	outline: none;
+	border: none;
+	border-radius: var(--e-a-border-radius);
+	background-color: var(--e-a-btn-bg);
+	color: var(--e-a-btn-color-invert);
+	transition: var(--e-a-transition-hover);
+
+	&:hover {
+		border: none;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: var(--e-a-btn-bg-hover);
+		color: var(--e-a-btn-color-invert);
+	}
+
+	&:active {
+		background-color: var(--e-a-btn-bg-active);
+	}
+
+	&:not([disabled]) {
+		cursor: pointer;
+	}
+
+	&:disabled {
+		background-color: var(--e-a-btn-bg-disabled);
+		color: var(--e-a-btn-color-disabled);
+	}
+
+	&:not(.elementor-button-state) {
+
+		.elementor-state-icon {
+			display: none;
+		}
+	}
+
+	&.e-btn-txt {
+		background: transparent;
+		color: var(--e-a-color-txt);
+
+		&:hover,
+		&:focus {
+			background: var(--e-a-bg-hover);
+			color: var(--e-a-color-txt-hover);
+		}
+
+		&:disabled {
+			background: transparent;
+			color: var(--e-a-color-txt-disabled);
+		}
+	}
+
+	&.e-btn-txt-border {
+		border: 1px solid var(--e-a-color-txt-muted);
+	}
+
+	&.elementor-button-success,
+	&.e-success {
+		background-color: var(--e-a-btn-bg-success);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-success-hover);
+		}
+	}
+
+	&.e-primary {
+		background-color: var(--e-a-btn-bg-primary);
+		color: var(--e-a-btn-color);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-primary-hover);
+			color: var(--e-a-btn-color);
+		}
+
+		&.e-btn-txt {
+			background: transparent;
+			color: var(--e-a-color-primary-bold);
+
+			&:hover,
+			&:focus {
+				background:var(--e-a-bg-primary);
+			}
+		}
+	}
+
+	&.go-pro,
+	&.e-accent {
+		background-color: var(--e-a-btn-bg-accent);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-accent-hover);
+		}
+
+		&:active {
+			background-color: var(--e-a-btn-bg-accent-active);
+		}
+	}
+
+	&.elementor-button-info,
+	&.e-info {
+		background-color: var(--e-a-btn-bg-info);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-info-hover);
+		}
+	}
+
+	&.elementor-button-warning,
+	&.e-warning {
+		background-color: var(--e-a-btn-bg-warning);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-warning-hover);
+		}
+	}
+
+	&.elementor-button-danger,
+	&.e-danger {
+		background-color: var(--e-a-btn-bg-danger);
+
+		&:hover,
+		&:focus {
+			background-color: var(--e-a-btn-bg-danger-hover);
+		}
+	}
+
+	i {
+		margin-inline-end: 5px;
+	}
+}
+
+@mixin ellipsis {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+@mixin absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@mixin checkers-background($checker-size, $color: var(--e-a-border-color-bold)) {
+	background-image: linear-gradient(45deg,$color 25%,transparent 0,transparent 75%,$color 0,$color),linear-gradient(45deg,$color 25%,transparent 0,transparent 75%,$color 0,$color);
+	background-size: $checker-size $checker-size;
+	background-position: 0 0,calc( #{$checker-size} / 2 ) calc( #{$checker-size} / 2 );
+}
+
+@mixin webkit-scrollbar($width, $color, $border-radius) {
+
+	&::-webkit-scrollbar {
+		width: $width;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $color;
+		border-radius: $border-radius;
+	}
+}
+//End

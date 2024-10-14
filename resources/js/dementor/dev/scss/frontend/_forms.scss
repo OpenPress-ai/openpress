@@ -1,0 +1,349 @@
+//
+// Forms (Input, Textarea, Select Etc..)
+//
+
+.elementor-form-fields-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+
+	&.elementor-labels-above {
+
+		.elementor-field-group {
+
+			> input, > textarea, > .elementor-select-wrapper, .elementor-field-subgroup {
+				flex-basis: 100%;
+				max-width: 100%; // Fix for Firefox browser
+			}
+		}
+	}
+
+	&.elementor-labels-inline {
+
+		> .elementor-field-group {
+
+			> input, .elementor-select-wrapper {
+				flex-grow: 1;
+			}
+		}
+	}
+}
+
+.elementor-field-group {
+	flex-wrap: wrap;
+	align-items: center;
+
+	&.elementor-field-type-submit {
+		align-items: flex-end;
+	}
+
+	.elementor-field-textual {
+		width: 100%;
+		max-width: 100%; // Tweak for themes that set this property
+		border: 1px solid $gray;
+		background-color: transparent;
+		color: $gray-darker;
+		vertical-align: middle;
+		flex-grow: 1;
+
+		&:focus {
+			box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+			outline: 0;
+		}
+
+		// Input Placeholder
+		@include input-placeholder();
+	}
+
+	.elementor-select-wrapper {
+		display: flex;
+		position: relative;
+		width: 100%;
+
+		select {
+			appearance: none;
+			color: inherit;
+			font-size: inherit;
+			font-family: inherit;
+			font-weight: inherit;
+			font-style: inherit;
+			text-transform: inherit;
+			letter-spacing: inherit;
+			line-height: inherit;
+			flex-basis: 100%;
+			padding-inline-end: 20px;
+		}
+
+		&:before {
+			content: '\e92a';
+			font-family: 'eicons';
+			font-size: 15px;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			@include end(10px);
+			pointer-events: none;
+			text-shadow: 0 0 3px rgba(0,0,0,0.3);//To show when the border color is lighter (#12053)
+		}
+	}
+
+	&.elementor-field-type-select-multiple{
+		.elementor-select-wrapper:before {
+			content: '';
+		}
+	}
+}
+
+.elementor-field-subgroup {
+	display: flex;
+	flex-wrap: wrap;
+
+	.elementor-field-option {
+
+		label {
+			display: inline-block;
+		}
+	}
+
+	&.elementor-subgroup-inline {
+
+		.elementor-field-option {
+			padding-inline-end: 10px;
+		}
+	}
+
+	&:not(.elementor-subgroup-inline) {
+
+		.elementor-field-option {
+			flex-basis: 100%;
+		}
+	}
+}
+
+.elementor-field-type-checkbox,
+.elementor-field-type-radio,
+.elementor-field-type-acceptance {
+
+	.elementor-field-subgroup {
+
+		.elementor-field-option {
+
+			input,
+			label {
+				display: inline;
+			}
+		}
+	}
+}
+
+.elementor-field-label {
+	cursor: pointer;
+
+	.elementor-mark-required &:after {
+		content: '*';
+		color: red;
+		padding-inline-start: 0.2em;
+	}
+}
+
+// Keep the following out from another parent selector!
+.elementor-field-textual {
+	line-height: 1.4;
+	font-size: 15px; //size-sm
+	min-height: 40px; //size-sm
+	padding: 5px 14px; //size-sm
+	border-radius: 3px; //size-sm
+
+	&.elementor-size- {
+
+		&xs {
+			font-size: 13px;
+			min-height: 33px;
+			padding: 4px 12px;
+			border-radius: 2px;
+		}
+
+		&sm {
+			//default size
+		}
+
+		&md {
+			font-size: 16px;
+			min-height: 47px;
+			padding: 6px 16px;
+			border-radius: 4px;
+		}
+
+		&lg {
+			font-size: 18px;
+			min-height: 59px;
+			padding: 7px 20px;
+			border-radius: 5px;
+		}
+
+		&xl {
+			font-size: 20px;
+			min-height: 72px;
+			padding: 8px 24px;
+			border-radius: 6px;
+		}
+	}
+}
+
+@mixin btn-align() {
+	&stretch {
+		.elementor-field-type-submit:not(.e-form__buttons__wrapper) {
+			.elementor-button {
+				flex-basis: 100%;
+			}
+		}
+
+		.e-form__buttons__wrapper {
+			flex-basis: 50%;
+			flex-grow: 1;
+
+			&__button {
+				flex-basis: 100%;
+			}
+		}
+	}
+
+	&center {
+		.elementor-field-type-submit,
+		.e-form__buttons {
+			justify-content: center;
+		}
+	}
+
+	&start {
+		.elementor-field-type-submit,
+		.e-form__buttons {
+			justify-content: getValueByDirection(flex-start, flex-end);
+		}
+	}
+
+	&end {
+		.elementor-field-type-submit,
+		.e-form__buttons {
+			justify-content: getValueByDirection(flex-end, flex-start);
+		}
+	}
+
+	&center,
+	&start,
+	&end {
+		.elementor-field-type-submit:not(.e-form__buttons__wrapper) {
+			.elementor-button {
+				flex-basis: initial;
+			}
+		}
+
+		.e-form__buttons__wrapper {
+			flex-grow: initial;
+
+			&,
+			&__button {
+				flex-basis: initial;
+			}
+		}
+	}
+}
+
+.elementor-button-align- {
+	@include btn-align();
+}
+
+@media screen and ( max-width: $screen-tablet-max ){
+
+	.elementor-tablet-button-align- {
+		@include btn-align();
+	}
+}
+
+@media screen and ( max-width: $screen-mobile-max ){
+
+	.elementor-mobile-button-align- {
+		@include btn-align();
+	}
+}
+
+// Form Messages
+.elementor-error {
+
+	.elementor-field {
+		border-color: $danger;
+	}
+
+	.help-inline {
+		color: $danger;
+		font-size: 0.9em;
+	}
+}
+
+.elementor-message {
+	margin: 10px 0;
+	font-size: 1em;
+	line-height: 1;
+
+	&:before {
+		content: "\e90e";
+		display: inline-block;
+		font-family: eicons;
+		font-weight: normal;
+		font-style: normal;
+		vertical-align: middle;
+		margin-inline-end: 5px;
+	}
+
+	&.elementor-message-danger {
+		color: $danger;
+
+		&:before {
+			content: "\e87f";
+		}
+	}
+
+	&.form-message-success {
+		color: $success;
+	}
+}
+
+// Form Submit Button
+.elementor-form {
+
+	.elementor-button {
+		padding-block-start: 0;
+		padding-block-end: 0;
+		border: none;
+
+		& > span, // BC for older versions, before 3.22, should be deleted in 3.25.
+		&-content-wrapper {
+			display: flex;
+			justify-content: center;
+			flex-direction: row;
+			gap: 5px;
+		}
+
+		&.elementor-size- {
+
+			&xs {
+				min-height: 33px;
+			}
+
+			&sm {
+				min-height: 40px;
+			}
+
+			&md {
+				min-height: 47px;
+			}
+
+			&lg {
+				min-height: 59px;
+			}
+
+			&xl {
+				min-height: 72px;
+			}
+		}
+	}
+}

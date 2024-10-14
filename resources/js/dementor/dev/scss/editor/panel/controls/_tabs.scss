@@ -1,0 +1,42 @@
+
+// Inner Tabs
+.elementor-control-type-tabs {
+	display: flex;
+	font-size: var(--control-title-size);
+}
+
+.elementor-control-type-tab {
+	text-align: center;
+	width: 100%;
+	padding: 0;
+	line-height: $control-unit - 2;
+	border-block-start: var(--e-a-border-bold);
+	border-block-end: var(--e-a-border-bold);
+	border-inline-end: var(--e-a-border-bold);
+	transition: var(--e-a-transition-hover);
+	cursor: pointer;
+
+	&:first-child {
+		border-inline-start: var(--e-a-border-bold);
+		border-start-start-radius: var(--e-a-border-radius);
+		border-end-start-radius: var(--e-a-border-radius);
+	}
+
+	&:last-child {
+		border-start-end-radius: var(--e-a-border-radius);
+		border-end-end-radius: var(--e-a-border-radius);
+	}
+
+	&:hover {
+		background-color: var(--e-a-bg-hover);
+	}
+
+	&.e-tab-active {
+		background-color: var(--e-a-bg-active-bold);
+		color: var(--e-a-color-txt-accent);
+	}
+}
+
+.e-tab-close {
+	display: none !important;
+}

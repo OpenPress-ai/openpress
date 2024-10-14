@@ -1,0 +1,134 @@
+//
+// Social Icons
+//
+
+$icon-size: var(--icon-size, 25px);
+$icon-padding: var(--icon-padding, 0.5em);
+$icon-total-size: calc(#{$icon-size} + (2 * #{$icon-padding}));
+
+.elementor-widget-social-icons {
+/*TODO: This Grid-0 needs to be removed after PRO is Updated */
+	&.elementor-grid-0, &.elementor-grid-tablet-0, &.elementor-grid-mobile-0 {
+		.elementor-widget-container {
+			line-height: 1;
+			font-size: 0;
+		}
+	}
+
+	&:not(.elementor-grid-0):not(.elementor-grid-tablet-0):not(.elementor-grid-mobile-0) {
+		.elementor-grid {
+			display: inline-grid;
+		}
+	}
+
+	.elementor-grid {
+		grid-column-gap: var(--grid-column-gap, 5px);
+		grid-row-gap: var(--grid-row-gap, 5px);
+		grid-template-columns: var(--grid-template-columns);
+		justify-content: var(--justify-content, center);
+		justify-items: var(--justify-content, center);
+	}
+}
+
+// This is for specificity, to avoid being overridden by Theme Style Link Typography.
+.elementor-icon.elementor-social-icon {
+	font-size: $icon-size;
+	line-height: $icon-size;
+	width: $icon-total-size;
+	height: $icon-total-size;
+}
+
+.elementor-social-icon {
+	--e-social-icon-icon-color: #fff;
+
+	display: inline-flex;
+	background-color: $gray;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	cursor: pointer;
+
+	i {
+		color: var(--e-social-icon-icon-color);
+	}
+
+	svg {
+		fill: var(--e-social-icon-icon-color);
+	}
+
+	&:last-child {
+		margin: 0;
+	}
+
+	&:hover {
+		opacity: .9;
+		color: white; //for override .elementor-icon class
+	}
+
+	&- {
+		&android		{ background-color: $android; }
+		&apple			{ background-color: $apple; }
+		&behance		{ background-color: $behance; }
+		&bitbucket		{ background-color: $bitbucket; }
+		&codepen		{ background-color: $codepen; }
+		&delicious		{ background-color: $delicious; }
+		&deviantart		{ background-color: $deviantart; }
+		&digg			{ background-color: $digg; }
+		&dribbble		{ background-color: $dribbble; }
+		&elementor		{ background-color: $elementor; }
+		&envelope		{ background-color: $envelope; }
+		&facebook,
+		&facebook-f		{ background-color: $facebook; }
+		&flickr			{ background-color: $flickr; }
+		&foursquare		{ background-color: $foursquare; }
+		&freecodecamp,
+		&free-code-camp	{ background-color: $freecodecamp; }
+		&github			{ background-color: $github; }
+		&gitlab			{ background-color: $gitlab; }
+		&globe			{ background-color: $gray; }
+		&google-plus,
+		&google-plus-g	{ background-color: $google-plus; }
+		&houzz			{ background-color: $houzz; }
+		&instagram		{ background-color: $instagram; }
+		&jsfiddle		{ background-color: $jsfiddle; }
+		&link			{ background-color: $link; }
+		&linkedin,
+		&linkedin-in	{ background-color: $linkedin; }
+		&medium			{ background-color: $medium; }
+		&meetup			{ background-color: $meetup; }
+		&mixcloud		{ background-color: $mixcloud }
+		&odnoklassniki	{ background-color: $odnoklassniki; }
+		&pinterest		{ background-color: $pinterest; }
+		&product-hunt	{ background-color: $product-hunt; }
+		&reddit			{ background-color: $reddit; }
+		&rss			{ background-color: $rss; }
+		&shopping-cart	{ background-color: $shopping-cart; }
+		&skype			{ background-color: $skype; }
+		&slideshare		{ background-color: $slideshare; }
+		&snapchat		{ background-color: $snapchat; }
+		&soundcloud		{ background-color: $soundcloud; }
+		&spotify		{ background-color: $spotify; }
+		&stack-overflow { background-color: $stack-overflow; }
+		&steam 			{ background-color: $steam; }
+		&stumbleupon 	{ background-color: $stumbleupon; }
+		&telegram		{ background-color: $telegram; }
+		&threads		{ background-color: $threads; }
+		&thumb-tack		{ background-color: $thumbtack; }
+		&tripadvisor	{ background-color: $tripadvisor; }
+		&tumblr			{ background-color: $tumblr; }
+		&twitch			{ background-color: $twitch; }
+		&twitter		{ background-color: $twitter; }
+		&viber			{ background-color: $viber; }
+		&vimeo			{ background-color: $vimeo; }
+		&vk				{ background-color: $vk; }
+		&weibo			{ background-color: $weibo; }
+		&weixin			{ background-color: $weixin; }
+		&whatsapp		{ background-color: $whatsapp; }
+		&wordpress		{ background-color: $wordpress; }
+		&x-twitter		{ background-color: $x-twitter; }
+		&xing			{ background-color: $xing; }
+		&yelp			{ background-color: $yelp; }
+		&youtube		{ background-color: $youtube; }
+		&500px			{ background-color: $five-h-px; }
+	}
+}

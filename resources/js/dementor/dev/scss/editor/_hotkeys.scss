@@ -1,0 +1,94 @@
+//Hotkyes modal (Keyboard shortcuts)
+#elementor-hotkeys {
+	text-align: start;
+
+	&__modal {
+
+		.dialog-buttons-wrapper {
+			display: none;
+		}
+	}
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		gap: 70px;
+		padding: 20px 30px;
+		width: 100%;
+		overflow: hidden;
+
+		@media (max-width: $editor-screen-md-max) {
+			flex-direction: column;
+			gap: 20px;
+			padding: 20px;
+		}
+	}
+}
+
+.elementor-hotkeys {
+
+	&__col {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+	}
+
+	&__header{
+		font-weight: 500;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		padding: 20px 10px;
+
+		&:not(:last-child) {
+			border-block-end: var(--e-a-border);
+		}
+
+		&--label {
+			font-size: 13px;
+			font-weight: 400;
+			flex-grow: 1;
+		}
+
+		&--shortcut {
+			flex-grow: 0;
+			display: flex;
+			gap: 27px;
+
+			@media (max-width: $editor-screen-md-max) {
+				gap: 23px;
+			}
+
+			kbd {
+				position: relative;
+				font-family: unset;
+				background-color: var(--e-a-bg-active);
+				padding: 5px 12px;
+				border-radius: var(--e-a-border-radius);
+
+				@media (max-width: $editor-screen-md-max) {
+					padding: 4px 9px;
+				}
+
+				&:not(:last-of-type) {
+
+					&::after {
+						content: "+";
+						position: absolute;
+						@include end(0);
+						width: 9px;
+						text-align: center;
+						margin-inline-end: -18px;
+
+						@media (max-width: $editor-screen-md-max) {
+							margin-inline-end: -16px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,36 @@
+// Panel elements categories
+#elementor-panel-elements-categories {
+	padding-block-end: 10px;
+	position: relative;
+}
+
+.elementor-panel-category {
+	position: relative;
+	border-block-end: var(--e-a-border);
+
+	.elementor-panel-heading {
+		padding: 0 15px;
+		border: none;
+		background-color: transparent;
+
+		&:focus {
+			// background-color: var(--e-a-bg-hover);
+		}
+	}
+
+	&.elementor-active {
+
+		.elementor-panel-heading {
+			border: none;
+		}
+	}
+
+	&-items {
+		padding-block-end: 20px;
+
+		&-empty {
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+	}
+}

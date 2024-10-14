@@ -1,0 +1,44 @@
+.elementor-control-type-image_dimensions {
+
+	.elementor-control-field-description {
+		margin: 0 0 15px;
+		line-height: 1.4;
+	}
+
+	.elementor-control-input-wrapper {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	.elementor-image-dimensions-field {
+		width: 65px;
+
+		input {
+
+			&:focus {
+
+				+ .elementor-image-dimensions-field-description {
+					color: var(--e-a-color-txt);
+				}
+			}
+		}
+	}
+
+	.elementor-image-dimensions-separator {
+		width: 20px;
+		text-align: center;
+		padding-block-start: 4px;
+	}
+
+	.elementor-image-dimensions-field-description {
+		display: block;
+		margin-block-start: 5px;
+		color: var(--e-a-color-txt-disabled);
+		font-size: $font-size-xs;
+		text-align: center;
+	}
+
+	.elementor-image-dimensions-apply-button {
+		margin-inline-start: auto;
+	}
+}

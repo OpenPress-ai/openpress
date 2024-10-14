@@ -1,0 +1,49 @@
+// Core variables and mixins
+@import "../helpers/variables";
+@import "../helpers/mixins";
+@import "breakpoints";
+
+// Reboot CSS
+@import "units";
+@import "wrapper";
+@import "global";
+@import "loader";
+@import "forms";
+
+// Dialog
+@import "../global/dialog-base";
+@import "../global/dialog-lightbox";
+@import "../global/dialog-confirm";
+
+// Components
+@import "perfect-scrollbar";
+@import "nprogress";
+@import "panel/panel";
+@import "panel/controls";
+@import "mode-switcher";
+@import "../../../../modules/history/assets/scss/revisions";
+@import "../../../../modules/history/assets/scss/history";
+@import "../../../../modules/promotions/assets/scss/editor";
+@import "../../../../core/kits/assets/css/panel";
+
+@import "animations";
+@import "buttons";
+@import "devices";
+@import "templates-modal";
+@import "dynamic-tags";
+@import "context-menu";
+@import "hotkeys";
+@import "../../../../modules/floating-buttons/assets/scss/floating-buttons/template/floating-buttons-template";
+
+@import "resizable";
+@import "navigator/navigator";
+@import "notice-bar";
+@import "preview-loading-error";
+@import "icons-manager";
+@import "color-picker";
+@import "select2";
+@import "control-scrubbing";
+@import "paste-area";
+
+// Temp flex icons
+@import "flex-icons";

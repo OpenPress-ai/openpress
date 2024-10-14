@@ -1,0 +1,75 @@
+//TODO: Remove after container is merged for good
+
+.elementor-control-type-structure {
+
+	.elementor-control-field {
+		display: initial;
+	}
+
+	.elementor-control-structure-preset {
+		padding: 3px;
+		border-radius: var(--e-border-radius);
+		display: inline-block;
+		cursor: pointer;
+		height: 50px;
+
+		svg {
+			height: 100%;
+		}
+
+		path {
+			fill: var(--e-a-border-color-bold);
+		}
+	}
+
+	.elementor-control-structure-reset {
+		padding: 15px 20px 0;
+		font-size: 11px;
+		cursor: pointer;
+		color: var(--e-a-color-txt-muted);
+		border-block-start: var(--e-a-border);
+		margin: 0 -20px;
+
+		&:hover {
+			color: var(--e-a-color-txt);
+		}
+	}
+
+	.elementor-control-structure-title {
+		margin: 10px -20px 0;
+
+		&:before {
+			height: 10px;
+			box-shadow: inset 0 2px 4px rgba(127,127,127,.1);
+		}
+	}
+
+	.elementor-control-structure-presets {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		input {
+			display: none;
+
+			&:checked + .elementor-control-structure-preset {
+
+				path {
+					fill: var(--e-a-border-color-focus);
+				}
+			}
+		}
+	}
+
+	.elementor-control-structure-preset-wrapper {
+		margin-block-end: 15px;
+	}
+
+	.elementor-control-structure-preset-title {
+		text-align: center;
+		padding-block-start: 5px;
+		font-style: italic;
+		font-size: 11px;
+		color: $editor-light;
+	}
+}

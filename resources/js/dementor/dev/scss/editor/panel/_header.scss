@@ -1,0 +1,54 @@
+//
+// Panel Header
+//
+
+#elementor-panel-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 40px;
+	width: 100%;
+	background-color: var(--e-a-dark-bg);
+	color: var(--e-a-color-white);
+
+	> * {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+.elementor-header-button {
+	width: 40px;
+	border: 0;
+	color: currentColor;
+	background-color: transparent;
+
+	.elementor-icon {
+		cursor: pointer;
+		display: block;
+		font-size: 19px;
+		height: 40px;
+		line-height: 40px;
+		transition: var(--e-a-transition-hover);
+
+		&.eicon-menu-bar {
+			font-size: 18px;
+		}
+	}
+
+	&:hover,
+	&:focus {
+		color: var(--e-a-dark-color-txt-hover);
+	}
+}
+
+#elementor-panel-header-title {
+	flex: 1;
+	font-size: 15px;
+	font-weight: 700;
+
+	img {
+		width: 90px;
+	}
+}

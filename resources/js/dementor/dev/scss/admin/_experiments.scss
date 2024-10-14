@@ -1,0 +1,70 @@
+// Experiments
+.e-experiment {
+
+	&__title {
+		display: flex;
+		align-items: flex-start;
+		flex-direction: column;
+
+		&__indicator {
+			position: absolute;
+			height: 10px;
+			width: 10px;
+			border-radius: 50%;
+			border: 2px solid white;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			flex-shrink: 0;
+			margin-block-start: 2px;
+
+			&--active {
+				background: $green;
+			}
+		}
+
+		&__label {
+			margin-inline-start: 24px;
+		}
+
+		&__tag {
+			background: $wp-primary;
+			color: $white;
+			font-size: 0.8em;
+			padding: 3px 6px;
+			line-height: 1;
+			border-radius: 3px;
+			font-weight: 600;
+			margin-block-start: 5px;
+			margin-inline-start: 24px;
+
+			&__secondary {
+				background: rgba(0,0,0,0.1);
+				color: inherit;
+			}
+		}
+	}
+
+	&__table-title {
+		margin:30px 0;
+	}
+
+	&__dependency, &__status {
+		margin-block-start: 4px;
+		font-size: 0.9em;
+		line-height: 18px;
+		font-weight: bold;
+		font-style: italic;
+	}
+
+	&__button.button {
+		margin-block: 18px 22px;
+		margin-inline: 0 14px;	
+	}
+
+	&__dependency {
+		color: $wordpress;
+
+		&__title {
+			font-weight: inherit;
+		}
+	}
+}

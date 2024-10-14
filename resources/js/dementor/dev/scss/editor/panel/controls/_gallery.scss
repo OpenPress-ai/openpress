@@ -1,0 +1,153 @@
+.elementor-control-type-gallery {
+
+	.elementor-control {
+
+		&-media__content {
+			border: var(--e-a-border-bold);
+			border-radius: 3px;
+		}
+
+		&-gallery-status {
+			font-size: 12px;
+			height: 27px;
+			padding-inline-start: 10px;
+			border-block-end: var(--e-a-border-bold);
+			display: flex;
+
+			> * {
+				display: flex;
+				align-items: center;
+			}
+
+			&-title {
+				flex-grow: 1;
+			}
+		}
+
+		&-gallery-content {
+			position: relative;
+			overflow: hidden;
+		}
+
+		&-gallery-thumbnails {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+			grid-gap: 10px;
+			cursor: pointer;
+			padding: 10px;
+
+			&:hover,
+			&:focus {
+
+				+ .elementor-control-gallery-edit {
+					opacity: 1;
+				}
+			}
+		}
+
+		&-gallery-thumbnail {
+			width: 48px;
+			height: 48px;
+			object-fit: cover;
+			border: var(--e-a-border);
+
+			+ .unoptimized__image {
+				outline: 2px solid var( --e-a-btn-bg-danger-active );
+				opacity: 0.6;
+			}
+		}
+
+		&-gallery-edit {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: rgba(0, 0, 0, .2);
+			padding: 10px;
+			font-size: 11px;
+			transition: all .3s ease-in-out;
+			pointer-events: none;
+			cursor: pointer;
+			opacity: 0;
+
+			span {
+				position: absolute;
+				top: 10px;
+				@include end(10px);
+				width: 21px;
+				height: 21px;
+				color: var(--e-a-color-white);
+				background-color: rgba(0, 0, 0, .5);
+				box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+				transition: var(--e-a-transition-hover);
+
+				i {
+					font-size: 11px;
+					padding: 5px;
+				}
+
+				&:hover {
+					background-color: rgba(0, 0, 0, .6);
+				}
+			}
+		}
+
+		&-gallery-add {
+			width: 48px;
+			height: 48px;
+			font-size: 14px;
+
+			i {
+				margin: 0;
+			}
+		}
+	}
+
+	&.elementor-gallery-empty {
+
+		.elementor-control-gallery-clear,
+		.elementor-control-gallery-thumbnails,
+		.elementor-control-gallery-edit {
+			display: none;
+		}
+
+		.elementor-control-gallery-content {
+			padding: 10px;
+		}
+	}
+
+	&.elementor-gallery-has-images {
+
+		.elementor-control-gallery-add {
+			display: none;
+		}
+	}
+
+	&.elementor-control-dynamic {
+
+		.elementor-control-gallery-clear {
+			border-inline-start: var(--e-a-border);
+		}
+	}
+
+	.elementor-control-gallery-clear {
+		color: currentColor;
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		justify-content: center;
+
+		&:hover,
+		&:focus {
+			color: var(--e-a-color-danger);
+		}
+	}
+
+	.elementor-control-dynamic-switcher {
+		border-width: 0;
+		border-inline-start-width: 1px;
+		border-block-end-width: 1px;
+		border-radius: 0;
+	}
+}

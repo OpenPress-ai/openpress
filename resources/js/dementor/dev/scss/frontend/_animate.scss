@@ -1,0 +1,29 @@
+// Global style for animate.css
+
+.animated {
+	animation-duration: 1.25s;
+
+	&.animated-slow {
+		animation-duration: 2s;
+	}
+
+	&.animated-fast {
+		animation-duration: .75s;
+	}
+
+	&.infinite {
+		animation-iteration-count: infinite;
+	}
+
+	&.reverse {
+		animation-direction: reverse;
+		animation-fill-mode: forwards;
+	}
+}
+
+// Disable animations for users who experience motion sickness / vertigo
+@media (prefers-reduced-motion: reduce) {
+	.animated {
+		animation: none;
+	}
+}

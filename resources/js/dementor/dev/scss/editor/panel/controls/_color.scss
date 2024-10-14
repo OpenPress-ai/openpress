@@ -1,0 +1,33 @@
+.elementor-control-type-color {
+
+	&.e-control-global {
+
+		.pickr {
+			border-start-start-radius: 0;
+			border-start-end-radius: var(--e-a-border-radius);
+			border-end-start-radius: 0;
+			border-end-end-radius: var(--e-a-border-radius);
+
+			flex-shrink: 0;
+			border-color: var(--e-a-border-color-bold);
+			transition: var(--e-a-transition-hover);
+
+			&:hover {
+				background-color: var(--e-a-bg-hover);
+			}
+		}
+
+		.e-global__popover-toggle:not(.e-global__popover-toggle--active) ~ .pickr {
+			background-color: var(--e-a-bg-active-bold);
+		}
+	}
+
+	.elementor-control-title {
+		flex-grow: 1;
+	}
+
+	.elementor-control-input-wrapper {
+		display: flex;
+		justify-content: flex-end;
+	}
+}

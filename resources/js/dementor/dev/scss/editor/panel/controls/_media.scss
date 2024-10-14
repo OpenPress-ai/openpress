@@ -1,0 +1,281 @@
+.elementor-control-media {
+
+	&.e-media-empty {
+
+		.elementor-control-media-area {
+			.elementor-control-media__remove, .elementor-control-media__content__remove {
+				display: none;
+			}
+		}
+	}
+
+	&.e-media-empty-placeholder {
+
+		.e-control-image-size {
+			display: none;
+		}
+	}
+
+	&:not(.e-media-empty) {
+		.elementor-control-media__content {
+			&__upload-button {
+				display: none;
+			}
+		}
+	}
+
+	.eicon-plus-circle {
+		@include absolute-center;
+		color: var(--e-a-color-white);
+		font-size: 20px;
+	}
+
+	&__content__upload-button {
+		background-color: var(--e-a-bg-active-bold);
+	}
+
+	&__preview {
+		height: 100%;
+		background-size: cover;
+		background-position: center;
+		// BC: Fix for Safari 13 and older browsers that don't support "aspect-ratio: 21 / 9;"
+		// TODO: Remove this line when we stop supporting Safari 13
+		padding-block-end: 42.8571%;
+	}
+
+	&-area {
+		@include checkers-background(16px);
+		background-color: var(--e-a-bg-default);
+		border: var(--e-a-border-bold);
+		aspect-ratio: 21 / 9;
+
+		&:not(:hover) {
+			.elementor-control-media__remove {
+				display: none;
+			}
+		}
+
+		.eicon-video-camera {
+			@include absolute-center;
+			color: rgba(255, 255, 255, 0.7);
+			font-size: 21px;
+		}
+	}
+
+	& &__content {
+		aspect-ratio: 21 / 9;
+		position: relative;
+		cursor: pointer;
+		overflow: hidden;
+
+		&:hover {
+
+			&:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background-color: rgba(0, 0, 0, .2);
+				pointer-events: none;
+			}
+		}
+
+		&:not(:hover) {
+
+			.elementor-control-media__tools {
+				bottom: -30px;
+			}
+		}
+	}
+
+	&__content {
+		transition: all .2s ease-in-out;
+	}
+
+	&__tools {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: $control-unit;
+		transition: all .2s ease-in-out;
+
+		> * {
+
+			&:not(:first-child) {
+				margin-inline-start: 1px;
+			}
+		}
+	}
+
+	&__tool {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-grow: 1;
+		color: var(--e-a-color-white);
+		background-color: rgba(0, 0, 0, .9);
+		font-size: 11px;
+		transition: var(--e-a-transition-hover);
+
+		&:hover {
+			background-color: rgba(0, 0, 0, .8);
+		}
+	}
+
+	&__remove {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all .3s ease-in-out;
+	}
+
+	&__content__remove {
+		position: absolute;
+		z-index: 1;
+		top: 10px;
+		@include end(10px);
+		width: 20px;
+		height: 20px;
+		font-size: 11px;
+		color: var(--e-a-color-white);
+		background-color: rgba(0, 0, 0, .5);
+		border-radius: var(--e-border-radius);
+		box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.2);
+		transition: var(--e-a-transition-hover);
+
+		&:hover {
+			background-color: rgba(0, 0, 0, .6);
+		}
+	}
+
+	&.e-media-empty .elementor-control-file-area {
+		display: none;
+	}
+
+	&__warnings {
+
+		&:empty {
+			display: none;
+		}
+
+		&:not(:empty) {
+			margin-block-start: 10px;
+		}
+	}	
+
+	// When attachment type is not image and not video
+	&__file {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		margin-block-start: 10px;
+		border: var(--e-a-border);
+
+		&__content {
+			padding-inline-start: 5px;
+			font-size: 12px;
+
+			&__label {
+				color: $editor-light;
+			}
+
+			&__info {
+				display: flex;
+				align-items: center;
+				font-weight: 500;
+
+				&__icon {
+					margin-inline-end: 5px;
+				}
+			}
+		}
+
+		&__controls {
+			display: flex;
+			border-inline-start: var(--e-a-border);
+
+			&__upload-button,
+			&__remove {
+				width: $control-unit;
+				height: $control-unit;
+				cursor: pointer;
+				align-items: center;
+			}
+
+			&__upload-button {
+				display: flex;
+				justify-content: center;
+			}
+
+			&__remove {
+				border-inline-end: var(--e-a-border);
+			}
+		}
+	}
+
+	&:not(.e-media-empty) &__file  {
+		&__content {
+			&__label {
+				display: none;
+			}
+		}
+	}
+
+	&.e-media-empty &__file {
+		&__content {
+			&__info {
+				display: none;
+			}
+		}
+		&__controls {
+			&__remove {
+				display: none;
+			}
+		}
+	}
+
+	.elementor-control-dynamic-switcher {
+		border: none;
+		border-radius: 0;
+		background-color: rgba(0, 0, 0, .9);
+		color: var(--e-a-color-white);
+
+		&:hover {
+			background-color: rgba(0, 0, 0, .8);
+			color: var(--e-a-color-white);
+		}
+	}
+
+	.e-control-image-size {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		padding-block-start: 20px;
+
+		.elementor-control-input-wrapper {
+			margin-inline-start: auto;
+		}
+	}
+}
+
+.elementor-control-type-media {
+
+	&.elementor-control-dynamic-value {
+
+		.elementor-control-input-wrapper {
+			border: none;
+		}
+	}
+}
+
+.elementor-control:not( .elementor-control-type-icons ) {
+	.elementor-control-media {
+		&__preview {
+			background-color: var(--e-a-bg-active-bold);
+		}
+	}
+}
