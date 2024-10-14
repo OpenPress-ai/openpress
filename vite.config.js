@@ -13,10 +13,19 @@ export default defineConfig({
                 'app.js',
                 'resources/css/page-builder.css',
                 'page-builder.js',
-                'src/jquery-global.js', // Add this line
+                'src/jquery-global.js',
             ],
             refresh: true,
         }),
+        {
+            name: 'jquery-global',
+            enforce: 'pre',
+            resolveId(source) {
+                if (source === 'jquery') {
+                    return path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js');
+                }
+            },
+        },
         inject({
             $: 'jquery',
             jQuery: 'jquery',
@@ -52,7 +61,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            'jquery': path.resolve(__dirname, 'node_modules/jquery'),
+            'jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js'),
             'elementor': path.resolve(__dirname, 'elementor'),
             'elementor-app': path.resolve(__dirname, 'elementor/app/assets/js'),
             'elementor-admin': path.resolve(__dirname, 'elementor/assets/dev/js/admin'),
