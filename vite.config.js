@@ -17,12 +17,14 @@ export default defineConfig({
             refresh: true,
         }),
         inject({
-          $: 'jquery',
-          jQuery: 'jquery',
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
         }),
         commonjs({
             include: [
                 /elementor\/.*/,
+                /node_modules\/jquery/,
             ],
         }),
     ],
@@ -32,6 +34,7 @@ export default defineConfig({
         exclude: [],
     },
     optimizeDeps: {
+        include: ['jquery'],
         esbuildOptions: {
             plugins: [
                 {
@@ -48,6 +51,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
+            'jquery': path.resolve(__dirname, 'node_modules/jquery'),
             'elementor': path.resolve(__dirname, 'elementor'),
             'elementor-app': path.resolve(__dirname, 'elementor/app/assets/js'),
             'elementor-admin': path.resolve(__dirname, 'elementor/assets/dev/js/admin'),
