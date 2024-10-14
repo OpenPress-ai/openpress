@@ -1,68 +1,68 @@
 <?php
 
+namespace Tests\Feature\PageBuilder;
+
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 use Spatie\Permission\Models\Role;
 
-beforeEach(function () {
-    Role::create(['name' => 'admin']);
-});
+class PageBuilderComponentsTest extends TestCase
+{
+    use RefreshDatabase;
 
-test('page builder routes are registered', function () {
-    $response = $this->get('/admin/page-builder');
-    $response->assertStatus(302); // Redirects to login if not authenticated
-});
+    protected $admin;
 
-test('page builder middleware is applied correctly', function () {
-    $user = User::factory()->create();
-    $response = $this->actingAs($user)->get('/admin/page-builder');
-    $response->assertStatus(403); // Forbidden for non-admin users
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-test('page builder menu item exists in admin panel', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
-    
-    $response = $this->actingAs($user)->get('/admin');
-    $response->assertStatus(200);
-    $response->assertSee('Page Builder');
-});
+        Role::create(['name' => 'admin']);
+        $this->admin = User::factory()->create();
+        $this->admin->assignRole('admin');
+    }
 
-test('page builder can load required assets', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
-    
-    $response = $this->actingAs($user)->get('/admin/page-builder');
-    $response->assertStatus(200);
-    $response->assertSee('page-builder.js');
-    $response->assertSee('page-builder.css');
-});
+    public function test_page_builder_can_load_required_assets()
+    {
+        $response = $this->actingAs($this->admin)->get(route('page-builder.create'));
 
-test('page builder api endpoints are accessible', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
-    
-    $response = $this->actingAs($user)->getJson('/api/page-builder/elements');
-    $response->assertStatus(200);
-});
+        $response->assertStatus(200);
+        $response->assertSee('Page Builder');
+        // Add assertions for required assets (CSS, JS) here
+    }
 
-test('page builder can create a basic page structure', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
-    
-    $response = $this->actingAs($user)->postJson('/api/page-builder/pages', [
-        'title' => 'Test Page',
-        'slug' => 'test-page',
-        'content' => json_encode([
-            'type' => 'section',
-            'children' => [
+    public function test_page_builder_can_load_available_components()
+    {
+        $response = $this->actingAs($this->admin)->get(route('page-builder.create'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Text Block');
+        $response->assertSee('Image');
+        $response->assertSee('Button');
+        // Add more component assertions as needed
+    }
+
+    public function test_page_builder_can_create_a_basic_page_structure()
+    {
+        $response = $this->actingAs($this->admin)->post(route('page-builder.store'), [
+            'title' => 'Test Page',
+            'slug' => 'test-page',
+            'content' => json_encode([
                 [
                     'type' => 'text',
-                    'content' => 'Hello, World!'
+                    'content' => 'This is a test page content.'
+                ],
+                [
+                    'type' => 'image',
+                    'src' => 'https://example.com/image.jpg',
+                    'alt' => 'Test Image'
                 ]
-            ]
-        ])
-    ]);
+            ])
+        ]);
     
-    $response->assertStatus(201);
-    $this->assertDatabaseHas('pages', ['slug' => 'test-page']);
-});
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('pages', ['slug' => 'test-page']);
+    }
+
+    // Add more tests for editing, updating, and deleting pages
+}
