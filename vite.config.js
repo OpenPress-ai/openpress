@@ -39,6 +39,7 @@ export default defineConfig({
             name: 'handle-marionette-exports',
             transform(code, id) {
                 if (code.includes('module.exports = Marionette.ItemView.extend(')) {
+                  console.log("replacing!")
                     return code.replace(
                         'module.exports = Marionette.ItemView.extend(',
                         'module.exports = window.Marionette.ItemView.extend('
