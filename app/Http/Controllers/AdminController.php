@@ -27,24 +27,26 @@ class AdminController extends Controller
             'json_file' => 'required|file|mimes:json',
         ]);
 
-        $file = $request->file('json_file');
-        $path = $file->store('temp');
-
-        Log::info('File stored at: ' . $path);
-        Log::info('Full storage path: ' . storage_path('app/' . $path));
-        Log::info('File exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
-
-        $fullPath = storage_path('app/' . $path);
-        Log::info('File permissions: ' . substr(sprintf('%o', fileperms($fullPath)), -4));
-        Log::info('File owner: ' . fileowner($fullPath));
-        Log::info('PHP process owner: ' . posix_getpwuid(posix_geteuid())['name']);
-
         try {
-            Log::info('Attempting to read file: ' . $fullPath);
-            $contents = file_get_contents($fullPath);
+            $path = $request->file('json_file')->storeAs('temp', 'import.json');
+
+            Log::info('File stored at: ' . $path);
+            Log::info('Full storage path: ' . storage_path('app/' . $path));
+            Log::info('File exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
+
+            $fullPath = storage_path('app/' . $path);
+            Log::info('File permissions: ' . substr(sprintf('%o', fileperms($fullPath)), -4));
+            Log::info('File owner: ' . fileowner($fullPath));
+            Log::info('PHP process owner: ' . posix_getpwuid(posix_geteuid())['name']);
+
+            if (!Storage::exists($path)) {
+                throw new \Exception('Import file not found: ' . $path);
+            }
+
+            $contents = Storage::get($path);
             Log::info('File contents length: ' . strlen($contents));
 
-            $this->importService->importJson($fullPath);
+            $this->importService->importJson($contents);
             $message = 'Import completed successfully.';
         } catch (\Exception $e) {
             Log::error('Import failed: ' . $e->getMessage());
@@ -52,15 +54,10 @@ class AdminController extends Controller
             $message = 'Import failed: ' . $e->getMessage();
         }
 
-        // Delay file deletion
-        sleep(1);
-
         // Delete the temporary file
-        if (Storage::exists($path)) {
+        if (isset($path) && Storage::exists($path)) {
             Storage::delete($path);
             Log::info('Temporary file deleted: ' . $path);
-        } else {
-            Log::warning('Temporary file not found for deletion: ' . $path);
         }
 
         $stats = [
