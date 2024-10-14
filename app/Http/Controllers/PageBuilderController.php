@@ -28,7 +28,7 @@ class PageBuilderController extends Controller
 
         $page = Page::create($validatedData);
 
-        return redirect()->route('pages.edit', $page)->with('success', 'Page created successfully');
+        return redirect()->route('page-builder.edit', $page)->with('success', 'Page created successfully');
     }
 
     public function edit(Page $page)
@@ -46,7 +46,7 @@ class PageBuilderController extends Controller
 
         $page->update($validatedData);
 
-        return redirect()->route('pages.edit', $page)->with('success', 'Page updated successfully');
+        return redirect()->route('page-builder.edit', $page)->with('success', 'Page updated successfully');
     }
 
     public function destroy(Page $page)
