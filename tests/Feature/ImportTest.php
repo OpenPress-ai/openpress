@@ -60,16 +60,25 @@ it('imports json and adds data to the database', function () {
 
     // Check if tags are attached to posts
     $tag = Tag::first();
+    expect($tag)->not->toBeNull();
     expect($tag->posts)->toHaveCount(4);
+
+    // Check if each post has the tag
+    foreach ($posts as $post) {
+        expect($post->tags)->toHaveCount(1);
+        expect($post->tags->first()->name)->toBe('#wordpress');
+    }
 
     // Check if authors are attached to posts
     $user = User::first();
+    expect($user)->not->toBeNull();
     expect($user->posts)->toHaveCount(4);
 
-    // Check if posts are associated with the correct author
-    $posts->each(function ($post) use ($user) {
-        expect($post->author->id)->toBe($user->id);
-    });
+    // Check if each post has the author
+    foreach ($posts as $post) {
+        expect($post->author)->not->toBeNull();
+        expect($post->author->name)->toBe('chris');
+    }
 });
 
 uses()->group('import')->in(__FILE__);
