@@ -4,6 +4,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\ImportService;
+use Illuminate\Support\Facades\Log;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 
@@ -12,7 +13,30 @@ beforeEach(function () {
 });
 
 it('imports json and adds data to the database', function () {
-    $this->importService->importJson(base_path('docs/wp_openpress_export.json'));
+    $jsonPath = base_path('docs/wp_openpress_export.json');
+    $jsonContents = file_get_contents($jsonPath);
+    
+    if ($jsonContents === false) {
+        Log::error("Failed to read JSON file: $jsonPath");
+        $this->fail("Failed to read JSON file");
+    }
+
+    Log::info("JSON file contents (first 100 characters): " . substr($jsonContents, 0, 100));
+
+    try {
+        $decodedJson = json_decode($jsonContents, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            Log::error("JSON decode error: " . json_last_error_msg());
+            $this->fail("JSON decode error: " . json_last_error_msg());
+        }
+    } catch (\Exception $e) {
+        Log::error("Exception during JSON decode: " . $e->getMessage());
+        $this->fail("Exception during JSON decode: " . $e->getMessage());
+    }
+
+    Log::info("Decoded JSON structure: " . print_r(array_keys($decodedJson), true));
+
+    $this->importService->importJson($jsonContents);
 
     // Check if users were imported
     assertDatabaseCount('users', 1);
