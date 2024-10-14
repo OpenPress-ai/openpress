@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class ImportService
 {
@@ -15,10 +16,11 @@ class ImportService
         Log::info('Starting import from path: ' . $path);
         
         try {
-            $json = json_decode(file_get_contents($path), true);
+            $contents = File::get($path);
+            $json = json_decode($contents, true);
             Log::info('JSON decoded successfully. Data keys: ' . implode(', ', array_keys($json['data'])));
         } catch (\Exception $e) {
-            Log::error('Error decoding JSON: ' . $e->getMessage());
+            Log::error('Error reading or decoding JSON: ' . $e->getMessage());
             throw $e;
         }
 
