@@ -1,5 +1,5 @@
 import Dependency from 'elementor-api/modules/hooks/data/dependency';
-import { DEFAULT_INNER_SECTION_COLUMNS } from 'elementor-elements/views/section';
+import * as SectionView from 'elementor-elements/views/section';
 
 export class ResizeColumnLimit extends Dependency {
 	getCommand() {
@@ -41,14 +41,14 @@ export class ResizeColumnLimit extends Dependency {
 					parentView.getColumnPercentSize( $nextElement, $nextElement[ 0 ].getBoundingClientRect().width ),
 				nextElementNewSize = +( currentSize + nextElementCurrentSize - newSize ).toFixed( 3 );
 
-			if ( nextElementNewSize < DEFAULT_INNER_SECTION_COLUMNS ) {
+			if ( nextElementNewSize < SectionView.DEFAULT_INNER_SECTION_COLUMNS ) {
 				if ( $e.devTools ) {
 					$e.devTools.log.error( 'New column width is too large' );
 				}
 				return false;
 			}
 
-			if ( newSize < DEFAULT_INNER_SECTION_COLUMNS ) {
+			if ( newSize < SectionView.DEFAULT_INNER_SECTION_COLUMNS ) {
 				if ( $e.devTools ) {
 					$e.devTools.log.error( 'New column width is too small' );
 				}
