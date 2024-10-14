@@ -19,16 +19,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {
         Route::get('/page-builder', [PageBuilderController::class, 'index'])->name('page-builder.index');
-        Route::get('/pages/create', [PageBuilderController::class, 'create'])->name('pages.create');
-        Route::post('/pages', [PageBuilderController::class, 'store'])->name('pages.store');
-        Route::get('/pages/{page}/edit', [PageBuilderController::class, 'edit'])->name('pages.edit');
-        Route::put('/pages/{page}', [PageBuilderController::class, 'update'])->name('pages.update');
-        Route::delete('/pages/{page}', [PageBuilderController::class, 'destroy'])->name('pages.destroy');
+        Route::get('/page-builder/create', [PageBuilderController::class, 'create'])->name('page-builder.create');
+        Route::post('/page-builder', [PageBuilderController::class, 'store'])->name('page-builder.store');
+        Route::get('/page-builder/{page}/edit', [PageBuilderController::class, 'edit'])->name('page-builder.edit');
+        Route::put('/page-builder/{page}', [PageBuilderController::class, 'update'])->name('page-builder.update');
+        Route::delete('/page-builder/{page}', [PageBuilderController::class, 'destroy'])->name('page-builder.destroy');
     });
-});
-
-Route::prefix('api/page-builder')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/elements', [PageBuilderController::class, 'getElements']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -37,4 +33,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
