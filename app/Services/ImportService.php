@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ImportService
 {
@@ -54,9 +55,16 @@ class ImportService
 
     private function importPosts(array $posts, array $postsAuthors): void
     {
-        $authorMap = collect($postsAuthors)->pluck('author_id', 'post_id');
+        $authorMap = collect($postsAuthors)->pluck('author_id', 'post_id')->toArray();
 
         foreach ($posts as $postData) {
+            $authorId = $authorMap[$postData['id']] ?? null;
+            
+            if (!$authorId) {
+                Log::warning("No author found for post ID: {$postData['id']}");
+                continue;
+            }
+
             Post::updateOrCreate(
                 ['id' => $postData['id']],
                 [
@@ -74,7 +82,7 @@ class ImportService
                     'created_at' => $postData['created_at'],
                     'updated_at' => $postData['updated_at'],
                     'published_at' => $postData['published_at'],
-                    'author_id' => $authorMap[$postData['id']] ?? null,
+                    'author_id' => $authorId,
                 ]
             );
         }
