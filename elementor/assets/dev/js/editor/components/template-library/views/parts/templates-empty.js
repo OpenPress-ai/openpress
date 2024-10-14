@@ -15,16 +15,16 @@ TemplateLibraryTemplatesEmptyView = Marionette.ItemView.extend( {
 
 	modesStrings: {
 		empty: {
-			title: __( 'Haven't Saved Templates Yet?' ),
-			message: __( 'This is where your templates should be. Design it. Save it. Reuse it.' ),
+			title: __( "Haven't Saved Templates Yet?" ),
+			message: __( "This is where your templates should be. Design it. Save it. Reuse it." ),
 		},
 		noResults: {
-			title: __( 'No Results Found' ),
-			message: __( 'Please make sure your search is spelled correctly or try a different words.' ),
+			title: __( "No Results Found" ),
+			message: __( "Please make sure your search is spelled correctly or try different words." ),
 		},
 		noFavorites: {
-			title: __( 'No Favorite Templates' ),
-			message: __( 'You can mark any pre-designed template as a favorite.' ),
+			title: __( "No Favorite Templates" ),
+			message: __( "You can mark any pre-designed template as a favorite." ),
 		},
 	},
 
