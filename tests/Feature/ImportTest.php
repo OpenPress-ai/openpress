@@ -61,12 +61,13 @@ it('imports json and adds data to the database', function () {
     // Check if tags are attached to posts
     $tag = Tag::first();
     expect($tag)->not->toBeNull();
-    expect($tag->posts)->toHaveCount(4);
+    $taggedPosts = $tag->posts;
+    expect($taggedPosts)->toHaveCount(4, "Expected 4 posts to be tagged, but found " . $taggedPosts->count() . ". Tagged post IDs: " . $taggedPosts->pluck('id')->implode(', '));
 
     // Check if each post has the tag
     foreach ($posts as $post) {
-        expect($post->tags)->toHaveCount(1);
-        expect($post->tags->first()->name)->toBe('#wordpress');
+        expect($post->tags)->toHaveCount(1, "Post ID {$post->id} ({$post->title}) should have 1 tag, but has " . $post->tags->count());
+        expect($post->tags->first()->name)->toBe('#wordpress', "Post ID {$post->id} ({$post->title}) should have the '#wordpress' tag");
     }
 
     // Check if authors are attached to posts
