@@ -102,6 +102,7 @@ class ImportService
             if ($post) {
                 $tagIds = Tag::whereIn('slug', $tagSlugs)->pluck('id');
                 $post->tags()->sync($tagIds);
+                Log::info("Attached tags to post ID: {$postId}", ['tag_slugs' => $tagSlugs, 'tag_ids' => $tagIds]);
             } else {
                 Log::warning("Post not found for ID: {$postId} when attaching tags");
             }
