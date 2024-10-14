@@ -7,20 +7,21 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\File;
 
 class ImportService
 {
-    public function importJson(string $path): void
+    public function importJson(string $contents): void
     {
-        Log::info('Starting import from path: ' . $path);
+        Log::info('Starting import from JSON contents');
         
         try {
-            $contents = File::get($path);
             $json = json_decode($contents, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON: ' . json_last_error_msg());
+            }
             Log::info('JSON decoded successfully. Data keys: ' . implode(', ', array_keys($json['data'])));
         } catch (\Exception $e) {
-            Log::error('Error reading or decoding JSON: ' . $e->getMessage());
+            Log::error('Error decoding JSON: ' . $e->getMessage());
             throw $e;
         }
 
