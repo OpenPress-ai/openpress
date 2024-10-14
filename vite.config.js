@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import fs from 'fs';
 import path from 'path';
 import commonjs from 'vite-plugin-commonjs';
+import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
     plugins: [
@@ -14,6 +15,10 @@ export default defineConfig({
                 'page-builder.js',
             ],
             refresh: true,
+        }),
+        inject({
+          $: 'jquery',
+          jQuery: 'jquery',
         }),
         commonjs({
             include: [
