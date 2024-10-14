@@ -13,6 +13,7 @@ export default defineConfig({
                 'app.js',
                 'resources/css/page-builder.css',
                 'page-builder.js',
+                'src/jquery-global.js', // Add this line
             ],
             refresh: true,
         }),
