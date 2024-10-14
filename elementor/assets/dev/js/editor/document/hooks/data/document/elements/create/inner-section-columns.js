@@ -1,6 +1,6 @@
 import After from 'elementor-api/modules/hooks/data/after';
 import Helper from '../helper';
-import { DEFAULT_INNER_SECTION_COLUMNS } from 'elementor-elements/views/section';
+import SectionView from 'elementor-elements/views/section';
 
 /**
  * @typedef {import('../../../../../../container/container')} Container
@@ -35,7 +35,7 @@ export class InnerSectionColumns extends After {
 			containers = [ containers ];
 		}
 
-		Helper.createSectionColumns( containers, DEFAULT_INNER_SECTION_COLUMNS, options, structure );
+		Helper.createSectionColumns( containers, SectionView.DEFAULT_INNER_SECTION_COLUMNS, options, structure );
 	}
 }
 
