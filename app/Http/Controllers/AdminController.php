@@ -35,9 +35,9 @@ class AdminController extends Controller
             Log::info('File exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
 
             $fullPath = storage_path('app/' . $path);
-            Log::info('File permissions: ' . substr(sprintf('%o', fileperms($fullPath)), -4));
-            Log::info('File owner: ' . fileowner($fullPath));
-            Log::info('PHP process owner: ' . posix_getpwuid(posix_geteuid())['name']);
+            // Log::info('File permissions: ' . substr(sprintf('%o', fileperms($fullPath)), -4));
+            // Log::info('File owner: ' . fileowner($fullPath));
+            // Log::info('PHP process owner: ' . posix_getpwuid(posix_geteuid())['name']);
 
             if (!Storage::exists($path)) {
                 throw new \Exception('Import file not found: ' . $path);
