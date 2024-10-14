@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import fs from 'fs';
 import path from 'path';
+import commonjs from 'vite-plugin-commonjs';
 
 export default defineConfig({
     plugins: [
@@ -13,6 +14,11 @@ export default defineConfig({
                 'page-builder.js',
             ],
             refresh: true,
+        }),
+        commonjs({
+            include: [
+                /elementor\/.*/,
+            ],
         }),
     ],
     esbuild: {
