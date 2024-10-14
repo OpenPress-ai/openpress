@@ -10,9 +10,20 @@ use Illuminate\Support\Facades\Log;
 
 class ImportService
 {
-    public function importJson(string $path): void
+    public function importJson(string $contents): void
     {
-        $json = json_decode(file_get_contents($path), true);
+        Log::info('Starting import from JSON contents');
+        
+        try {
+            $json = json_decode($contents, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON: ' . json_last_error_msg());
+            }
+            Log::info('JSON decoded successfully. Data keys: ' . implode(', ', array_keys($json['data'])));
+        } catch (\Exception $e) {
+            Log::error('Error decoding JSON: ' . $e->getMessage());
+            throw $e;
+        }
 
         DB::transaction(function () use ($json) {
             $this->importUsers($json['data']['users']);
@@ -20,10 +31,13 @@ class ImportService
             $this->importPosts($json['data']['posts'], $json['data']['posts_authors']);
             $this->attachTagsToPosts($json['data']['posts_tags'], $json['data']['tags']);
         });
+
+        Log::info('Import completed successfully');
     }
 
     private function importUsers(array $users): void
     {
+        Log::info('Importing users. Count: ' . count($users));
         foreach ($users as $userData) {
             User::updateOrCreate(
                 ['id' => $userData['id']],
@@ -38,10 +52,12 @@ class ImportService
                 ]
             );
         }
+        Log::info('Users imported successfully');
     }
 
     private function importTags(array $tags): void
     {
+        Log::info('Importing tags. Count: ' . count($tags));
         foreach ($tags as $tagData) {
             Tag::updateOrCreate(
                 ['slug' => $tagData['slug']],
@@ -50,10 +66,12 @@ class ImportService
                 ]
             );
         }
+        Log::info('Tags imported successfully');
     }
 
     private function importPosts(array $posts, array $postsAuthors): void
     {
+        Log::info('Importing posts. Count: ' . count($posts));
         $authorMap = collect($postsAuthors)->pluck('author_id', 'post_id')->toArray();
 
         foreach ($posts as $postData) {
@@ -93,10 +111,12 @@ class ImportService
                 'author_id' => $post->author_id
             ]);
         }
+        Log::info('Posts imported successfully');
     }
 
     private function attachTagsToPosts(array $postsTags, array $tags): void
     {
+        Log::info('Attaching tags to posts');
         $tagSlugMap = collect($tags)->pluck('slug', 'id')->toArray();
 
         $tagMap = collect($postsTags)->groupBy('post_id')->map(function ($tags) use ($tagSlugMap) {
@@ -120,5 +140,6 @@ class ImportService
                 Log::warning("Post not found for WordPress ID: {$wordpressPostId} when attaching tags");
             }
         }
+        Log::info('Tags attached to posts successfully');
     }
 }
