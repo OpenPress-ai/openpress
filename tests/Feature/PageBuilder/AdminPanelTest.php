@@ -1,75 +1,77 @@
 <?php
 
-use App\Models\User;
+namespace Tests\Feature\PageBuilder;
+
 use App\Models\Page;
-use Spatie\Permission\Models\Role;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-beforeEach(function () {
-    Role::create(['name' => 'admin']);
-});
+class AdminPanelTest extends TestCase
+{
+    use RefreshDatabase;
 
-test('admin can see page builder in admin panel', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
+    public function test_admin_can_access_page_builder()
+    {
+        $user = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($user)->get('/admin');
+        $response = $this->actingAs($user)->get('/admin/page-builder');
 
-    $response->assertStatus(200);
-    $response->assertSee('Page Builder');
-});
+        $response->assertStatus(200);
+    }
 
-test('admin can access page builder section', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
+    public function test_non_admin_cannot_access_page_builder()
+    {
+        $user = User::factory()->create(['is_admin' => false]);
 
-    $response = $this->actingAs($user)->get('/admin/page-builder');
+        $response = $this->actingAs($user)->get('/admin/page-builder');
 
-    $response->assertStatus(200);
-    $response->assertSee('Page Builder Dashboard');
-});
+        $response->assertStatus(403);
+    }
 
-test('admin can see list of pages in page builder', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
+    public function test_admin_can_create_new_page_with_page_builder()
+    {
+        $user = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($user)->get('/admin/page-builder/pages');
+        $response = $this->actingAs($user)->post('/admin/pages', [
+            'title' => 'New Test Page',
+            'slug' => 'new-test-page',
+            'content' => json_encode([
+                ['type' => 'text', 'content' => 'This is a test page.']
+            ])
+        ]);
 
-    $response->assertStatus(200);
-    $response->assertSee('Pages');
-});
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('pages', ['slug' => 'new-test-page']);
+    }
 
-test('admin can create new page with page builder', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
+    public function test_admin_can_edit_existing_page_with_page_builder()
+    {
+        $user = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($user)->get('/admin/page-builder/pages/create');
+        // Create a page
+        $page = Page::create([
+            'title' => 'Existing Test Page',
+            'slug' => 'existing-test-page',
+            'content' => json_encode([
+                ['type' => 'text', 'content' => 'This is an existing test page.']
+            ])
+        ]);
 
-    $response->assertStatus(200);
-    $response->assertSee('Create New Page');
-});
+        $response = $this->actingAs($user)->get("/admin/pages/{$page->id}/edit");
 
-test('admin can edit existing page with page builder', function () {
-    $user = User::factory()->create();
-    $user->assignRole('admin');
+        $response->assertStatus(200);
+        $response->assertSee('Existing Test Page');
+    }
 
-    // Create a page
-    $page = Page::create([
-        'title' => 'Test Page',
-        'slug' => 'test-page',
-        'content' => json_encode(['type' => 'section', 'content' => 'Test content']),
-    ]);
+    public function test_admin_can_delete_page()
+    {
+        $user = User::factory()->create(['is_admin' => true]);
+        $page = Page::factory()->create();
 
-    $response = $this->actingAs($user)->get("/admin/page-builder/pages/{$page->id}/edit");
+        $response = $this->actingAs($user)->delete("/admin/pages/{$page->id}");
 
-    $response->assertStatus(200);
-    $response->assertSee('Edit Page');
-    $response->assertSee('Test Page');
-});
-
-test('non admin cannot access page builder section', function () {
-    $user = User::factory()->create();
-
-    $response = $this->actingAs($user)->get('/admin/page-builder');
-
-    $response->assertStatus(403);
-});
+        $response->assertStatus(302);
+        $this->assertDatabaseMissing('pages', ['id' => $page->id]);
+    }
+}
