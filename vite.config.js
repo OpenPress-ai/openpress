@@ -40,6 +40,7 @@ export default defineConfig({
             'window.jQuery': 'jquery',
             '_': 'underscore',
             'Backbone': 'backbone',
+            'Marionette': 'elementor/assets/lib/backbone/backbone.marionette',
         }),
         commonjs({
             include: [
