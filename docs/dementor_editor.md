@@ -4,98 +4,124 @@
 
 This document outlines the plan for implementing the editor functionality in Dementor, our Laravel-based page builder inspired by Elementor. We'll adapt Elementor's editor code to work within our Laravel environment while maintaining as much of the original functionality as possible.
 
+## Elementor Editor Structure
+
+Based on the examination of Elementor's repository, the editor-related files are located in:
+
+```
+assets/dev/js/editor/
+```
+
+Key files and directories include:
+
+- `editor.js`: Main editor file
+- `editor-base.js`: Base editor functionality
+- `editor-document.js`: Document-related editor functionality
+- `components/`: Editor components
+- `controls/`: Editor controls
+- `elements/`: Element-related functionality
+- `views/`: Editor views
+
 ## Steps
 
-### 1. Analyze Elementor's Editor Structure
+### 1. Set Up Front-end Assets
 
-1.1. Identify key JavaScript files:
-- `assets/js/editor.js`
-- `assets/js/editor-modules/`
-- `assets/js/editor-document/`
-
-1.2. Identify key PHP files:
-- `includes/editor.php`
-- `includes/editor-templates/`
-
-### 2. Set Up Front-end Assets
-
-2.1. Create a new directory structure in our Laravel project:
+1.1. Create a new directory structure in our Laravel project:
 ```
 resources/
 └── js/
     └── page-builder/
-        ├── editor.js
-        └── modules/
+        ├── editor/
+        │   ├── components/
+        │   ├── controls/
+        │   ├── elements/
+        │   └── views/
+        └── editor.js
 ```
 
-2.2. Use Laravel Mix to compile and version these assets.
+1.2. Use Laravel Mix to compile and version these assets.
 
-### 3. Port Core Editor Functionality
+### 2. Port Core Editor Functionality
 
-3.1. Create a base `Editor` class in `resources/js/page-builder/editor.js`.
-3.2. Port essential modules from Elementor's `editor-modules/` to our `modules/` directory.
-3.3. Adapt the initialization process to work with Laravel's structure.
+2.1. Create a base `Editor` class in `resources/js/page-builder/editor.js`, adapting from Elementor's `editor.js`.
+2.2. Port essential functionality from `editor-base.js` and `editor-document.js`.
+2.3. Adapt the initialization process to work with Laravel's structure.
 
-### 4. Implement Editor Templates
+### 3. Implement Editor Components
 
-4.1. Create Blade templates for editor components in `resources/views/page-builder/editor/`.
-4.2. Port Elementor's editor templates, converting them to Blade syntax.
+3.1. Examine and port relevant components from Elementor's `components/` directory.
+3.2. Adapt components to work within our Laravel and Vue.js environment.
 
-### 5. Develop Backend Support
+### 4. Port Controls
 
-5.1. Create an `EditorController` to handle editor-related requests.
-5.2. Implement API endpoints for saving and loading editor data.
+4.1. Examine and port relevant controls from Elementor's `controls/` directory.
+4.2. Adapt controls to work with our data structure and Vue.js components.
 
-### 6. Integrate with Existing Page Builder Components
+### 5. Implement Elements
 
-6.1. Ensure the editor works with our existing elements and widgets.
-6.2. Adapt the data structure to match our `PageBuilderData` model.
+5.1. Port relevant element functionality from Elementor's `elements/` directory.
+5.2. Ensure compatibility with our existing elements and widgets.
 
-### 7. Implement Drag-and-Drop Functionality
+### 6. Adapt Views
 
-7.1. Port Elementor's drag-and-drop code, adapting it to our structure.
-7.2. Ensure smooth integration with our Laravel-based backend.
+6.1. Examine and port relevant views from Elementor's `views/` directory.
+6.2. Convert views to Vue.js components where appropriate.
 
-### 8. Add Real-time Preview
+### 7. Develop Backend Support
 
-8.1. Implement a preview pane that updates in real-time as changes are made.
-8.2. Use Laravel Echo or a similar solution for real-time updates if necessary.
+7.1. Create an `EditorController` to handle editor-related requests.
+7.2. Implement API endpoints for saving and loading editor data.
 
-### 9. Implement Undo/Redo Functionality
+### 8. Integrate with Existing Page Builder Components
 
-9.1. Port Elementor's history module, adapting it to our needs.
-9.2. Ensure proper state management for undo/redo actions.
+8.1. Ensure the editor works with our existing elements and widgets.
+8.2. Adapt the data structure to match our `PageBuilderData` model.
 
-### 10. Add Responsive Editing
+### 9. Implement Drag-and-Drop Functionality
 
-10.1. Implement device preview modes (desktop, tablet, mobile).
-10.2. Ensure that responsive settings are properly saved and applied.
+9.1. Examine Elementor's drag-and-drop implementation in the `views/` directory.
+9.2. Adapt the drag-and-drop functionality to work with our Vue.js components.
 
-### 11. Optimize Performance
+### 10. Add Real-time Preview
 
-11.1. Implement lazy loading for editor components.
-11.2. Optimize asset loading and minimize initial load time.
+10.1. Implement a preview pane that updates in real-time as changes are made.
+10.2. Use Vue.js reactivity system for real-time updates.
 
-### 12. Implement Global Settings
+### 11. Implement Undo/Redo Functionality
 
-12.1. Create a settings panel for global styles and configurations.
-12.2. Ensure these settings are properly applied across the editor.
+11.1. Examine Elementor's history module in the `document/` directory.
+11.2. Implement a similar history system using Vue.js state management (e.g., Vuex).
 
-### 13. Add Keyboard Shortcuts
+### 12. Add Responsive Editing
 
-13.1. Implement keyboard shortcuts for common actions.
-13.2. Provide a way for users to view and customize shortcuts.
+12.1. Implement device preview modes (desktop, tablet, mobile).
+12.2. Ensure that responsive settings are properly saved and applied.
 
-### 14. Implement Context Menu
+### 13. Optimize Performance
 
-14.1. Create a context menu for quick actions on elements.
-14.2. Ensure the context menu is easily extensible for future additions.
+13.1. Implement lazy loading for editor components.
+13.2. Optimize asset loading and minimize initial load time.
+
+### 14. Implement Global Settings
+
+14.1. Create a settings panel for global styles and configurations.
+14.2. Ensure these settings are properly applied across the editor.
+
+### 15. Add Keyboard Shortcuts
+
+15.1. Implement keyboard shortcuts for common actions.
+15.2. Provide a way for users to view and customize shortcuts.
+
+### 16. Implement Context Menu
+
+16.1. Create a context menu for quick actions on elements.
+16.2. Ensure the context menu is easily extensible for future additions.
 
 ## Considerations
 
 1. **Laravel Integration**: Ensure all JavaScript code is properly integrated with Laravel's structure and asset compilation process.
 
-2. **Vue.js Compatibility**: If using Vue.js in other parts of the application, consider how the editor will interact with Vue components.
+2. **Vue.js Compatibility**: Adapt Elementor's jQuery-based code to work with Vue.js components and reactivity system.
 
 3. **Database Structure**: Adapt Elementor's data structure to work with our `PageBuilderData` model and Laravel's Eloquent ORM.
 
@@ -109,9 +135,10 @@ resources/
 
 ## Next Steps
 
-1. Begin by porting the core editor functionality and basic UI.
-2. Implement the drag-and-drop feature and real-time preview.
-3. Gradually add more advanced features like undo/redo and responsive editing.
-4. Continuously test and refine the editor as it's being developed.
+1. Begin by porting the core editor functionality from `editor.js`, `editor-base.js`, and `editor-document.js`.
+2. Implement basic components and controls.
+3. Develop the drag-and-drop feature and real-time preview.
+4. Gradually add more advanced features like undo/redo and responsive editing.
+5. Continuously test and refine the editor as it's being developed.
 
-By following this plan, we'll create a robust and feature-rich editor for our Dementor page builder, leveraging the strengths of Elementor while adapting it to our Laravel-based architecture.
+By following this plan, we'll create a robust and feature-rich editor for our Dementor page builder, leveraging the strengths of Elementor while adapting it to our Laravel and Vue.js-based architecture.
