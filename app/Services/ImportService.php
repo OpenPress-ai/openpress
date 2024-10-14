@@ -90,12 +90,16 @@ class ImportService
 
     private function attachTagsToPosts(array $postsTags): void
     {
-        foreach ($postsTags as $postTag) {
-            $post = Post::find($postTag['post_id']);
-            $tag = Tag::find($postTag['tag_id']);
+        $tagMap = collect($postsTags)->groupBy('post_id')->map(function ($tags) {
+            return $tags->pluck('tag_id')->toArray();
+        })->toArray();
 
-            if ($post && $tag) {
-                $post->tags()->syncWithoutDetaching([$tag->id]);
+        foreach ($tagMap as $postId => $tagIds) {
+            $post = Post::find($postId);
+            if ($post) {
+                $post->tags()->sync($tagIds);
+            } else {
+                Log::warning("Post not found for ID: {$postId} when attaching tags");
             }
         }
     }
