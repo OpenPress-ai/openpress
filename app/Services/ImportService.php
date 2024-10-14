@@ -44,10 +44,9 @@ class ImportService
     {
         foreach ($tags as $tagData) {
             Tag::updateOrCreate(
-                ['id' => $tagData['id']],
+                ['slug' => $tagData['slug']],
                 [
                     'name' => $tagData['name'],
-                    'slug' => $tagData['slug'],
                 ]
             );
         }
