@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
-            $table->foreignId('author_id')->constrained('users');
+            $table->foreignId('author_id')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
