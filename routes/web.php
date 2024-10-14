@@ -1,31 +1,27 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageBuilderController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('admin/page-builder')->group(function () {
+        Route::get('/', [PageBuilderController::class, 'index'])->name('page-builder.index');
+        Route::get('/create', [PageBuilderController::class, 'create'])->name('page-builder.create');
+        Route::get('/{id}/edit', [PageBuilderController::class, 'edit'])->name('page-builder.edit');
+    });
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-    Route::post('/admin/import', [AdminController::class, 'import'])->name('admin.import');
+Route::prefix('api/page-builder')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/elements', [PageBuilderController::class, 'getElements']);
+    Route::post('/pages', [PageBuilderController::class, 'store']);
 });
-
-// New route for showing posts
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
 require __DIR__.'/auth.php';
