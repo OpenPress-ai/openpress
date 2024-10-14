@@ -64,7 +64,7 @@ class ImportService
                 continue;
             }
 
-            Post::updateOrCreate(
+            $post = Post::updateOrCreate(
                 ['id' => $postData['id']],
                 [
                     'title' => $postData['title'],
@@ -84,6 +84,13 @@ class ImportService
                     'author_id' => $authorId,
                 ]
             );
+
+            Log::info("Post created/updated", [
+                'id' => $post->id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'author_id' => $post->author_id
+            ]);
         }
     }
 
