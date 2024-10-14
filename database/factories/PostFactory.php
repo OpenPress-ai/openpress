@@ -17,7 +17,20 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(6),
+            'slug' => $this->faker->slug(),
+            'mobiledoc' => json_encode([
+                [
+                    'type' => 'text',
+                    'content' => $this->faker->paragraphs(3, true)
+                ],
+                [
+                    'type' => 'image',
+                    'content' => $this->faker->imageUrl()
+                ]
+            ]),
+            'type' => 'post',
+            'status' => 'published',
         ];
     }
 }
