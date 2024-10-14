@@ -15,6 +15,7 @@ class ImportService
         Log::info('Starting import from JSON contents');
         
         try {
+            Log::info('Attempting to decode JSON');
             $json = json_decode($contents, true);
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new \Exception('Invalid JSON: ' . json_last_error_msg());
@@ -22,6 +23,7 @@ class ImportService
             Log::info('JSON decoded successfully. Data keys: ' . implode(', ', array_keys($json['data'])));
         } catch (\Exception $e) {
             Log::error('Error decoding JSON: ' . $e->getMessage());
+            Log::error('First 100 characters of JSON content: ' . substr($contents, 0, 100));
             throw $e;
         }
 
