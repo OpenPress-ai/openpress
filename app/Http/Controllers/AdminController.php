@@ -34,8 +34,12 @@ class AdminController extends Controller
         Log::info('Full storage path: ' . storage_path('app/' . $path));
         Log::info('File exists: ' . (Storage::exists($path) ? 'Yes' : 'No'));
 
+        $fullPath = storage_path('app/' . $path);
+        Log::info('File permissions: ' . substr(sprintf('%o', fileperms($fullPath)), -4));
+        Log::info('File owner: ' . fileowner($fullPath));
+        Log::info('PHP process owner: ' . posix_getpwuid(posix_geteuid())['name']);
+
         try {
-            $fullPath = storage_path('app/' . $path);
             Log::info('Attempting to read file: ' . $fullPath);
             $contents = file_get_contents($fullPath);
             Log::info('File contents length: ' . strlen($contents));
