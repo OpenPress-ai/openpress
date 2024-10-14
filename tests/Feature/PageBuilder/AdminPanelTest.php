@@ -29,13 +29,15 @@ test('admin can create new page with page builder', function () {
     $user = User::factory()->create();
     $user->assignRole('admin');
 
-    $response = $this->actingAs($user)->post('/admin/pages', [
+    $pageData = [
         'title' => 'New Test Page',
         'slug' => 'new-test-page',
         'content' => json_encode([
             ['type' => 'text', 'content' => 'This is a test page.']
         ])
-    ]);
+    ];
+
+    $response = $this->actingAs($user)->post('/admin/pages', $pageData);
 
     $response->assertStatus(302);
     $this->assertDatabaseHas('pages', ['slug' => 'new-test-page']);
@@ -45,19 +47,12 @@ test('admin can edit existing page with page builder', function () {
     $user = User::factory()->create();
     $user->assignRole('admin');
 
-    // Create a page
-    $page = Page::create([
-        'title' => 'Existing Test Page',
-        'slug' => 'existing-test-page',
-        'content' => json_encode([
-            ['type' => 'text', 'content' => 'This is an existing test page.']
-        ])
-    ]);
+    $page = Page::factory()->create();
 
     $response = $this->actingAs($user)->get("/admin/pages/{$page->id}/edit");
 
     $response->assertStatus(200);
-    $response->assertSee('Existing Test Page');
+    $response->assertSee($page->title);
 });
 
 test('admin can delete page', function () {
