@@ -1,7 +1,7 @@
 import ColorPicker from './color-picker';
 import DocumentHelper from 'elementor-editor/document/helper-bc';
 import ContainerHelper from 'elementor-editor-utils/container-helper';
-import DOMPurify, { isValidAttribute } from 'dompurify';
+import DOMPurify from 'dompurify';
 
 const allowedHTMLWrapperTags = [
 	'article',
@@ -706,7 +706,7 @@ module.exports = {
 	},
 
 	sanitizeUrl( url ) {
-		const isValidUrl = !! url ? isValidAttribute( 'a', 'href', url ) : false;
+		const isValidUrl = !! url ? DOMPurify.isValidAttribute( 'a', 'href', url ) : false;
 
 		return isValidUrl ? url : '';
 	},
