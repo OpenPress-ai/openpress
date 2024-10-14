@@ -1,5 +1,8 @@
 var TemplateLibraryTemplatesEmptyView;
 
+// Fallback function for localization
+const __ = (text) => text;
+
 TemplateLibraryTemplatesEmptyView = Marionette.ItemView.extend( {
 	id: 'elementor-template-library-templates-empty',
 
@@ -12,16 +15,16 @@ TemplateLibraryTemplatesEmptyView = Marionette.ItemView.extend( {
 
 	modesStrings: {
 		empty: {
-			title: __( 'Haven’t Saved Templates Yet?', 'elementor' ),
-			message: __( 'This is where your templates should be. Design it. Save it. Reuse it.', 'elementor' ),
+			title: __( 'Haven't Saved Templates Yet?' ),
+			message: __( 'This is where your templates should be. Design it. Save it. Reuse it.' ),
 		},
 		noResults: {
-			title: __( 'No Results Found', 'elementor' ),
-			message: __( 'Please make sure your search is spelled correctly or try a different words.', 'elementor' ),
+			title: __( 'No Results Found' ),
+			message: __( 'Please make sure your search is spelled correctly or try a different words.' ),
 		},
 		noFavorites: {
-			title: __( 'No Favorite Templates', 'elementor' ),
-			message: __( 'You can mark any pre-designed template as a favorite.', 'elementor' ),
+			title: __( 'No Favorite Templates' ),
+			message: __( 'You can mark any pre-designed template as a favorite.' ),
 		},
 	},
 
