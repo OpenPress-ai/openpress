@@ -52,8 +52,16 @@ class AdminController extends Controller
             $message = 'Import failed: ' . $e->getMessage();
         }
 
+        // Delay file deletion
+        sleep(1);
+
         // Delete the temporary file
-        Storage::delete($path);
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+            Log::info('Temporary file deleted: ' . $path);
+        } else {
+            Log::warning('Temporary file not found for deletion: ' . $path);
+        }
 
         $stats = [
             'users' => \App\Models\User::count(),
