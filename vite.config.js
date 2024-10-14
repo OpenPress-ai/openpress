@@ -26,6 +26,14 @@ export default defineConfig({
                 }
             },
         },
+        {
+            name: 'handle-elementor-jquery-imports',
+            transform(code, id) {
+                if (id.includes('elementor') && code.includes('import $ from \'jquery\'')) {
+                    return code.replace('import $ from \'jquery\'', 'const $ = window.jQuery');
+                }
+            },
+        },
         inject({
             $: 'jquery',
             jQuery: 'jquery',
