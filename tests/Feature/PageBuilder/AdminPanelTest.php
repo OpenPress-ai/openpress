@@ -1,77 +1,72 @@
 <?php
 
-namespace Tests\Feature\PageBuilder;
-
-use App\Models\Page;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use App\Models\Page;
+use Spatie\Permission\Models\Role;
 
-class AdminPanelTest extends TestCase
-{
-    use RefreshDatabase;
+beforeEach(function () {
+    Role::create(['name' => 'admin']);
+});
 
-    public function test_admin_can_access_page_builder()
-    {
-        $user = User::factory()->create(['is_admin' => true]);
+test('admin can access page builder', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
 
-        $response = $this->actingAs($user)->get('/admin/page-builder');
+    $response = $this->actingAs($user)->get('/admin/page-builder');
 
-        $response->assertStatus(200);
-    }
+    $response->assertStatus(200);
+});
 
-    public function test_non_admin_cannot_access_page_builder()
-    {
-        $user = User::factory()->create(['is_admin' => false]);
+test('non admin cannot access page builder', function () {
+    $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get('/admin/page-builder');
+    $response = $this->actingAs($user)->get('/admin/page-builder');
 
-        $response->assertStatus(403);
-    }
+    $response->assertStatus(403);
+});
 
-    public function test_admin_can_create_new_page_with_page_builder()
-    {
-        $user = User::factory()->create(['is_admin' => true]);
+test('admin can create new page with page builder', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
 
-        $response = $this->actingAs($user)->post('/admin/pages', [
-            'title' => 'New Test Page',
-            'slug' => 'new-test-page',
-            'content' => json_encode([
-                ['type' => 'text', 'content' => 'This is a test page.']
-            ])
-        ]);
+    $response = $this->actingAs($user)->post('/admin/pages', [
+        'title' => 'New Test Page',
+        'slug' => 'new-test-page',
+        'content' => json_encode([
+            ['type' => 'text', 'content' => 'This is a test page.']
+        ])
+    ]);
 
-        $response->assertStatus(302);
-        $this->assertDatabaseHas('pages', ['slug' => 'new-test-page']);
-    }
+    $response->assertStatus(302);
+    $this->assertDatabaseHas('pages', ['slug' => 'new-test-page']);
+});
 
-    public function test_admin_can_edit_existing_page_with_page_builder()
-    {
-        $user = User::factory()->create(['is_admin' => true]);
+test('admin can edit existing page with page builder', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
 
-        // Create a page
-        $page = Page::create([
-            'title' => 'Existing Test Page',
-            'slug' => 'existing-test-page',
-            'content' => json_encode([
-                ['type' => 'text', 'content' => 'This is an existing test page.']
-            ])
-        ]);
+    // Create a page
+    $page = Page::create([
+        'title' => 'Existing Test Page',
+        'slug' => 'existing-test-page',
+        'content' => json_encode([
+            ['type' => 'text', 'content' => 'This is an existing test page.']
+        ])
+    ]);
 
-        $response = $this->actingAs($user)->get("/admin/pages/{$page->id}/edit");
+    $response = $this->actingAs($user)->get("/admin/pages/{$page->id}/edit");
 
-        $response->assertStatus(200);
-        $response->assertSee('Existing Test Page');
-    }
+    $response->assertStatus(200);
+    $response->assertSee('Existing Test Page');
+});
 
-    public function test_admin_can_delete_page()
-    {
-        $user = User::factory()->create(['is_admin' => true]);
-        $page = Page::factory()->create();
+test('admin can delete page', function () {
+    $user = User::factory()->create();
+    $user->assignRole('admin');
+    $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->delete("/admin/pages/{$page->id}");
+    $response = $this->actingAs($user)->delete("/admin/pages/{$page->id}");
 
-        $response->assertStatus(302);
-        $this->assertDatabaseMissing('pages', ['id' => $page->id]);
-    }
-}
+    $response->assertStatus(302);
+    $this->assertDatabaseMissing('pages', ['id' => $page->id]);
+});
