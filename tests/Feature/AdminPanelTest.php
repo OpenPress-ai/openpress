@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class AdminPanelTest extends TestCase
@@ -12,7 +13,9 @@ class AdminPanelTest extends TestCase
 
     public function test_admin_can_see_admin_panel()
     {
-        $admin = User::factory()->create(['is_admin' => true]);
+        Role::create(['name' => 'admin']);
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         $response = $this->actingAs($admin)->get('/admin');
 
@@ -22,7 +25,7 @@ class AdminPanelTest extends TestCase
 
     public function test_non_admin_cannot_see_admin_panel()
     {
-        $user = User::factory()->create(['is_admin' => false]);
+        $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get('/admin');
 
