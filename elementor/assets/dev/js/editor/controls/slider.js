@@ -1,7 +1,7 @@
 var ControlBaseUnitsItemView = require( 'elementor-controls/base-units' ),
 	ControlSliderItemView;
 
-import { convertSizeToFrString } from 'elementor-editor-utils/helpers';
+const { convertSizeToFrString } = require('elementor-editor-utils/helpers');
 
 ControlSliderItemView = ControlBaseUnitsItemView.extend( {
 	ui() {
