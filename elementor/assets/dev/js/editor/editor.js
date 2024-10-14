@@ -16,3 +16,4 @@ export class Editor extends EditorBase {
 }
 
 window.elementor = new Editor();
+console.log("We set window.elementor")
