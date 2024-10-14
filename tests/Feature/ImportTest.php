@@ -34,25 +34,25 @@ it('imports json and adds data to the database', function () {
     $posts = Post::all();
     expect($posts)->toHaveCount(4);
 
-    $helloWorld = $posts->firstWhere('slug', 'hello-world');
+    $helloWorld = $posts->firstWhere('wordpress_id', 1);
     expect($helloWorld)->not->toBeNull();
     expect($helloWorld->title)->toBe('Hello world!');
     expect($helloWorld->type)->toBe('post');
     expect($helloWorld->status)->toBe('published');
 
-    $samplePage = $posts->firstWhere('slug', 'sample-page');
+    $samplePage = $posts->firstWhere('wordpress_id', 2);
     expect($samplePage)->not->toBeNull();
     expect($samplePage->title)->toBe('Sample Page');
     expect($samplePage->type)->toBe('page');
     expect($samplePage->status)->toBe('published');
 
-    $privacyPolicy = $posts->firstWhere('slug', 'privacy-policy');
+    $privacyPolicy = $posts->firstWhere('wordpress_id', 3);
     expect($privacyPolicy)->not->toBeNull();
     expect($privacyPolicy->title)->toBe('Privacy Policy');
     expect($privacyPolicy->type)->toBe('page');
     expect($privacyPolicy->status)->toBe('draft');
 
-    $goodbyeWordPress = $posts->firstWhere('slug', 'goodbye-wordpress');
+    $goodbyeWordPress = $posts->firstWhere('wordpress_id', 6);
     expect($goodbyeWordPress)->not->toBeNull();
     expect($goodbyeWordPress->title)->toBe('Goodbye WordPress');
     expect($goodbyeWordPress->type)->toBe('post');
@@ -62,12 +62,12 @@ it('imports json and adds data to the database', function () {
     $tag = Tag::first();
     expect($tag)->not->toBeNull();
     $taggedPosts = $tag->posts;
-    expect($taggedPosts)->toHaveCount(4, "Expected 4 posts to be tagged, but found " . $taggedPosts->count() . ". Tagged post IDs: " . $taggedPosts->pluck('id')->implode(', '));
+    expect($taggedPosts)->toHaveCount(4, "Expected 4 posts to be tagged, but found " . $taggedPosts->count() . ". Tagged post WordPress IDs: " . $taggedPosts->pluck('wordpress_id')->implode(', '));
 
     // Check if each post has the tag
     foreach ($posts as $post) {
-        expect($post->tags)->toHaveCount(1, "Post ID {$post->id} ({$post->title}) should have 1 tag, but has " . $post->tags->count());
-        expect($post->tags->first()->name)->toBe('#wordpress', "Post ID {$post->id} ({$post->title}) should have the '#wordpress' tag");
+        expect($post->tags)->toHaveCount(1, "Post WordPress ID {$post->wordpress_id} ({$post->title}) should have 1 tag, but has " . $post->tags->count());
+        expect($post->tags->first()->name)->toBe('#wordpress', "Post WordPress ID {$post->wordpress_id} ({$post->title}) should have the '#wordpress' tag");
     }
 
     // Check if authors are attached to posts
