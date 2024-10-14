@@ -9,8 +9,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+        return view('admin.index');
+    })->name('admin.index');
 
     Route::prefix('admin/page-builder')->group(function () {
         Route::get('/', [PageBuilderController::class, 'index'])->name('page-builder.index');
