@@ -16,7 +16,6 @@ Key files and directories include:
 
 - `editor.js`: Main editor file
 - `editor-base.js`: Base editor functionality
-- `editor-document.js`: Document-related editor functionality
 - `components/`: Editor components
 - `controls/`: Editor controls
 - `elements/`: Element-related functionality
@@ -39,23 +38,22 @@ resources/
         └── editor.js
 ```
 
-1.2. Use Laravel Mix to compile and version these assets.
+1.2. Use Vite to compile and version these assets.
 
 ### 2. Port Core Editor Functionality
 
-2.1. Create a base `Editor` class in `resources/js/page-builder/editor.js`, adapting from Elementor's `editor.js`.
-2.2. Port essential functionality from `editor-base.js` and `editor-document.js`.
-2.3. Adapt the initialization process to work with Laravel's structure.
+2.1. Create a base `Editor` class in `resources/js/page-builder/editor.js`, adapting from Elementor's `editor.js` and `editor-base.js`.
+2.2. Adapt the initialization process to work with Laravel's structure and Alpine.js.
 
 ### 3. Implement Editor Components
 
 3.1. Examine and port relevant components from Elementor's `components/` directory.
-3.2. Adapt components to work within our Laravel and Vue.js environment.
+3.2. Adapt components to work within our Laravel and Alpine.js environment.
 
 ### 4. Port Controls
 
 4.1. Examine and port relevant controls from Elementor's `controls/` directory.
-4.2. Adapt controls to work with our data structure and Vue.js components.
+4.2. Adapt controls to work with our data structure and Alpine.js components.
 
 ### 5. Implement Elements
 
@@ -65,7 +63,7 @@ resources/
 ### 6. Adapt Views
 
 6.1. Examine and port relevant views from Elementor's `views/` directory.
-6.2. Convert views to Vue.js components where appropriate.
+6.2. Convert views to Alpine.js components where appropriate.
 
 ### 7. Develop Backend Support
 
@@ -80,17 +78,17 @@ resources/
 ### 9. Implement Drag-and-Drop Functionality
 
 9.1. Examine Elementor's drag-and-drop implementation in the `views/` directory.
-9.2. Adapt the drag-and-drop functionality to work with our Vue.js components.
+9.2. Adapt the drag-and-drop functionality to work with Alpine.js.
 
 ### 10. Add Real-time Preview
 
 10.1. Implement a preview pane that updates in real-time as changes are made.
-10.2. Use Vue.js reactivity system for real-time updates.
+10.2. Use Alpine.js reactivity system for real-time updates.
 
 ### 11. Implement Undo/Redo Functionality
 
-11.1. Examine Elementor's history module in the `document/` directory.
-11.2. Implement a similar history system using Vue.js state management (e.g., Vuex).
+11.1. Examine Elementor's history module in the `modules/history/` directory.
+11.2. Implement a similar history system using Alpine.js state management.
 
 ### 12. Add Responsive Editing
 
@@ -119,9 +117,9 @@ resources/
 
 ## Considerations
 
-1. **Laravel Integration**: Ensure all JavaScript code is properly integrated with Laravel's structure and asset compilation process.
+1. **Laravel Integration**: Ensure all JavaScript code is properly integrated with Laravel's structure and asset compilation process using Vite.
 
-2. **Vue.js Compatibility**: Adapt Elementor's jQuery-based code to work with Vue.js components and reactivity system.
+2. **Alpine.js Compatibility**: Adapt Elementor's jQuery-based code to work with Alpine.js components and reactivity system.
 
 3. **Database Structure**: Adapt Elementor's data structure to work with our `PageBuilderData` model and Laravel's Eloquent ORM.
 
@@ -135,10 +133,10 @@ resources/
 
 ## Next Steps
 
-1. Begin by porting the core editor functionality from `editor.js`, `editor-base.js`, and `editor-document.js`.
+1. Begin by porting the core editor functionality from `editor.js` and `editor-base.js`.
 2. Implement basic components and controls.
 3. Develop the drag-and-drop feature and real-time preview.
 4. Gradually add more advanced features like undo/redo and responsive editing.
 5. Continuously test and refine the editor as it's being developed.
 
-By following this plan, we'll create a robust and feature-rich editor for our Dementor page builder, leveraging the strengths of Elementor while adapting it to our Laravel and Vue.js-based architecture.
+By following this plan, we'll create a robust and feature-rich editor for our Dementor page builder, leveraging the strengths of Elementor while adapting it to our Laravel and Alpine.js-based architecture.
