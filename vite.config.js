@@ -3,6 +3,22 @@ import laravel from 'laravel-vite-plugin';
 import fs from 'fs';
 import path from 'path';
 import commonjs from 'vite-plugin-commonjs';
+import { Plugin } from 'vite';
+
+// Add this function to handle dynamic imports
+function handleDynamicImports(): Plugin {
+    return {
+        name: 'handle-dynamic-imports',
+        transform(code, id) {
+            if (id.includes('elementor') && code.includes('export const')) {
+                return {
+                    code: code.replace(/export const/g, 'const'),
+                    map: null
+                };
+            }
+        }
+    };
+}
 
 export default defineConfig({
     plugins: [
@@ -18,8 +34,11 @@ export default defineConfig({
         commonjs({
             include: [
                 /elementor\/.*/,
+                /.*\.js$/,  // Add this line to include all JS files
             ],
+            transformMixedEsModules: true,  // Add this line
         }),
+        handleDynamicImports(),  // Add the new plugin
     ],
     esbuild: {
         loader: 'jsx',
