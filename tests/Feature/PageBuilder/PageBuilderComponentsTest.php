@@ -23,6 +23,7 @@ test('page builder menu item exists in admin panel', function () {
     $user->assignRole('admin');
     
     $response = $this->actingAs($user)->get('/admin');
+    $response->assertStatus(200);
     $response->assertSee('Page Builder');
 });
 
@@ -31,6 +32,7 @@ test('page builder can load required assets', function () {
     $user->assignRole('admin');
     
     $response = $this->actingAs($user)->get('/admin/page-builder');
+    $response->assertStatus(200);
     $response->assertSee('page-builder.js');
     $response->assertSee('page-builder.css');
 });
