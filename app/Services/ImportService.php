@@ -16,9 +16,8 @@ class ImportService
         DB::transaction(function () use ($json) {
             $this->importUsers($json['data']['users']);
             $this->importTags($json['data']['tags']);
-            $this->importPosts($json['data']['posts']);
+            $this->importPosts($json['data']['posts'], $json['data']['posts_authors']);
             $this->attachTagsToPosts($json['data']['posts_tags']);
-            $this->attachAuthorsToPosts($json['data']['posts_authors']);
         });
     }
 
@@ -53,8 +52,10 @@ class ImportService
         }
     }
 
-    private function importPosts(array $posts): void
+    private function importPosts(array $posts, array $postsAuthors): void
     {
+        $authorMap = collect($postsAuthors)->pluck('author_id', 'post_id');
+
         foreach ($posts as $postData) {
             Post::updateOrCreate(
                 ['id' => $postData['id']],
@@ -73,6 +74,7 @@ class ImportService
                     'created_at' => $postData['created_at'],
                     'updated_at' => $postData['updated_at'],
                     'published_at' => $postData['published_at'],
+                    'author_id' => $authorMap[$postData['id']] ?? null,
                 ]
             );
         }
@@ -86,19 +88,6 @@ class ImportService
 
             if ($post && $tag) {
                 $post->tags()->syncWithoutDetaching([$tag->id]);
-            }
-        }
-    }
-
-    private function attachAuthorsToPosts(array $postsAuthors): void
-    {
-        foreach ($postsAuthors as $postAuthor) {
-            $post = Post::find($postAuthor['post_id']);
-            $user = User::find($postAuthor['author_id']);
-
-            if ($post && $user) {
-                $post->author()->associate($user);
-                $post->save();
             }
         }
     }
