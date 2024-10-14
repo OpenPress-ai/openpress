@@ -1,4 +1,4 @@
-import { DEFAULT_MAX_COLUMNS } from 'elementor-elements/views/section';
+import * as SectionView from 'elementor-elements/views/section';
 
 var BaseElementView = require( 'elementor-elements/views/base' ),
 	ColumnEmptyView = require( 'elementor-elements/views/column-empty' ),
@@ -104,7 +104,7 @@ ColumnView = BaseElementView.extend( {
 					icon: 'eicon-plus',
 					title: __( 'Add New Column', 'elementor' ),
 					callback: this.addNewColumn.bind( this ),
-					isEnabled: () => self.model.collection.length < DEFAULT_MAX_COLUMNS && ! elementor.selection.isMultiple(),
+					isEnabled: () => self.model.collection.length < SectionView.DEFAULT_MAX_COLUMNS && ! elementor.selection.isMultiple(),
 				},
 			],
 		} );
