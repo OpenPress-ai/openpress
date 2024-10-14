@@ -23,7 +23,7 @@
                 @endif
                 
                 <div class="prose dark:prose-invert max-w-none">
-                    {!! $post->mobiledoc !!}
+                    {!! $post->content !!}
                 </div>
             </div>
         </div>
