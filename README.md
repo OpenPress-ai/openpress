@@ -15,6 +15,7 @@ We're chronicling the development of OpenPress on X.
 8. [Export WP to OpenPress Plugin](https://x.com/OpenPressAI/status/1845328039179059588)
 9. [Import to OpenPress](https://x.com/OpenPressAI/status/1845674819603300480)
 10. [Forking Elementor](https://x.com/OpenPressAI/status/1845861885213634802)
+11. [Not Forking Elementor](https://x.com/OpenPressAI/status/1846001294731075724)
 
 ## Contributing
 
