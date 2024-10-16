@@ -16,6 +16,7 @@ We're chronicling the development of OpenPress on X.
 9. [Import to OpenPress](https://x.com/OpenPressAI/status/1845674819603300480)
 10. [Forking Elementor](https://x.com/OpenPressAI/status/1845861885213634802)
 11. [Not Forking Elementor](https://x.com/OpenPressAI/status/1846001294731075724)
+12. [First Principles](https://x.com/OpenPressAI/status/1846356233491730627)
 
 ## Contributing
 
